@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <p:layout fullPage="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    4ciencias
+                </p:layoutUnit>                                     
+                <p:layoutUnit position="center">
+                    <h:form>  
+                        <p:panelGrid columns="2">
+                            <f:facet name="header">
+                                <p:graphicImage url="/media/user-icon.png" width="350" height="250" />
+                            </f:facet>                          
+
+                            <h3>Título</h3>
+                            <p:inputTextarea rows="2" cols="33" autoResize="false" value="#{preguntaBean.titulo}" />
+
+                            <h3>Categoría</h3>                            
+                            <p:selectOneMenu id="advanced" value="#{preguntaBean.nombreCategoria}" 
+                                             panelStyle="width:180px" effect="fade" var="t" style="width:160px" filter="true" 
+                                             filterMatchMode="startsWith">                               
+                                <f:selectItems value="#{categoriaBean.categorias}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.nombre}"/>
+                            </p:selectOneMenu>
+
+                            <h3>Descripción</h3>
+                            <p:inputTextarea rows="6" cols="33" autoResize="false" value="#{preguntaBean.contenido}"/>
+                            
+                            <h3></h3>  
+                            <p:commandButton value="Publicar" action="#{preguntaBean.insertarPregunta}" icon="ui-icon-check" />
+                        </p:panelGrid>                                                                                           
+                    </h:form>                     
+                </p:layoutUnit>
+            </p:layout>
+        </h:body>
+
+    </f:view>
+</html>
+

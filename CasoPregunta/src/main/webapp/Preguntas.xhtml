@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <h:head>        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <h:form> 
+            <p:dataScroller value="#{preguntaBean.preguntas}" var="pregunta" chunkSize="10">               
+                <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">                    
+                    
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Titulo:" />
+                            <h:outputText value="#{pregunta.titulo}" style="font-weight: bold"/>
+
+                            <h:outputText value="Contenido:" />
+                            <h:outputText value="#{pregunta.contenido}" style="font-weight: bold"/>
+
+                            <h:outputText value="Usuario:" />
+                            <h:outputText value="#{pregunta.titulo}" style="font-weight: bold"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                    
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+    </h:body>
+</html>

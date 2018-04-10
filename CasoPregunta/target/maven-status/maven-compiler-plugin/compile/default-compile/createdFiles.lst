@@ -1,0 +1,8 @@
+Modelo/Pregunta.class
+Modelo/Usuario.class
+Modelo/Categoria.class
+Controlador/ManagerC.class
+Controlador/CategoriaBean.class
+Controlador/ManagerP.class
+Controlador/PreguntaBean.class
+Modelo/HibernateUtil.class
