@@ -1,7 +1,5 @@
-controlador/FiltroAutenticacion.class
 modelo/HibernateUtil.class
 controlador/UtilidadHTTP.class
 controlador/ManagerU.class
 controlador/LoginBean.class
 modelo/Usuario.class
-controlador/EditarPerfilBean.class

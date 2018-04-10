@@ -5,13 +5,11 @@
  */
 package controlador;
 
-import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import javax.servlet.http.HttpSession;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 /**
@@ -55,7 +53,7 @@ public class LoginBean implements Serializable {
         if (usuario.exists(nombre, password)) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
             sesion.setAttribute("username", nombre);
-            return "/restringido/principal";
+            return "principal";
         }
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage(FacesMessage.SEVERITY_WARN, 
@@ -64,15 +62,10 @@ public class LoginBean implements Serializable {
         return "login";
     }
     
-    public void resultadoLogout() throws IOException{
+    public String resultadoLogout() {
         HttpSession sesion = UtilidadHTTP.obtenSesion();
-        sesion.removeAttribute("username");
         sesion.invalidate();
-        //String red = UtilidadHTTP.obtenSolicitud().getContextPath() + 
-          //           "/faces/login.xhtml";
-        FacesContext.getCurrentInstance().getExternalContext().
-                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/login.xhtml");
+        return "login";
     }
     
     public String insertaU() {
@@ -80,12 +73,12 @@ public class LoginBean implements Serializable {
         if (usuario.addUsuario(nombre, password, email)) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
             sesion.setAttribute("username", nombre);
-            return "/restringido/principal";
+            return "principal";
         }
         FacesContext.getCurrentInstance().addMessage(null, 
                 new FacesMessage(FacesMessage.SEVERITY_WARN, 
                                  "No inserte usuario",
                                  "alv"));
-        return "../login";
+        return "login";
     }
 }

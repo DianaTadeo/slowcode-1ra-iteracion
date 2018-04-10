@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>4Ciencias</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+             <h:form id="joinForm">          
+                <p:growl id="msg" showDetail="true" life="3000" />
+                <p:panel header="Join" style="width: 360px;">
+
+                    <h:panelGrid id="joinPanel" columns="2">
+
+                        <h:outputText value="Usuario:" />
+
+                        <p:inputText id="username" value="#{loginBean.nombre}" ></p:inputText>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="username" ></p:message>
+                        
+                        <h:outputText value="Correo:" />
+
+                        <p:inputText id="email" value="#{loginBean.email}" ></p:inputText>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="email" ></p:message>
+
+                        <h:outputText value="Password" />
+
+                        <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="password"></p:message>
+
+                        <p:spacer></p:spacer>
+
+                        <p:commandButton id="agrega" action="#{loginBean.insertaU()}" value="Join" update="joinForm" ajax="true"></p:commandButton>
+
+                    </h:panelGrid>
+
+                </p:panel>
+
+            </h:form>
+            
+        </h:body>
+
+    </f:view>
+</html>

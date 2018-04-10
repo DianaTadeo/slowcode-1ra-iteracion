@@ -23,11 +23,7 @@
 
                         <h:outputText value="Usuario:" />
 
-                        <p:inputText id="username" 
-                                     value="#{loginBean.nombre}" 
-                                     required="true"
-                                     requiredMessage="No introduciste tu nombre!!!"
-                                     ></p:inputText>
+                        <p:inputText id="username" value="#{loginBean.nombre}" ></p:inputText>
 
                         <p:spacer></p:spacer>
 
@@ -35,12 +31,7 @@
 
                         <h:outputText value="Password" />
 
-                        <p:password id="password" 
-                                    value="#{loginBean.password}"  
-                                    feedback="false"
-                                    required="true" 
-                                    requiredMessage="No introduciste el password!!!"
-                                    ></p:password>
+                        <p:password id="password" value="#{loginBean.password}"  feedback="false"></p:password>
 
                         <p:spacer></p:spacer>
 
@@ -48,11 +39,7 @@
 
                         <p:spacer></p:spacer>
 
-                        <p:commandButton action="#{loginBean.resultadoLogin()}" 
-                                         value="Login" 
-                                         update="loginForm" 
-                                         ajax="true"
-                                         rendered="#{sessionScope.username == null}"></p:commandButton>
+                        <p:commandButton action="#{loginBean.resultadoLogin()}" value="Login" update="loginForm" ajax="true"></p:commandButton>
 
                     </h:panelGrid>
 
