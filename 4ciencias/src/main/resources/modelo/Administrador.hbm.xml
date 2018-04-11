@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 10, 2018 7:46:24 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Administrador" table="administrador" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="foreign">
+                <param name="property">usuario</param>
+            </generator>
+        </id>
+        <one-to-one name="usuario" class="modelo.Usuario" constrained="true"></one-to-one>
+    </class>
+</hibernate-mapping>

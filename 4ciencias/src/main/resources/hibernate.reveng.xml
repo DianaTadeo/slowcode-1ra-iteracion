@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
 
@@ -39,22 +39,13 @@ made subject to such option by the copyright holder.
 
 Contributor(s):
 -->
-<hibernate-configuration>
-  <session-factory>
-    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/fciencias</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">postgres</property>
-    <property name="hibernate.show_sql">true</property>
-    <property name="hibernate.format_sql">true</property>
-    <property name="hibernate.current_session_context_class">thread</property>
-    <mapping resource="modelo/Respuesta.hbm.xml"/>
-    <mapping resource="modelo/Categoria.hbm.xml"/>
-    <mapping resource="modelo/UsuarioSinValidar.hbm.xml"/>
-    <mapping resource="modelo/Administrador.hbm.xml"/>
-    <mapping resource="modelo/Carrera.hbm.xml"/>
-    <mapping resource="modelo/Usuario.hbm.xml"/>
-    <mapping resource="modelo/Pregunta.hbm.xml"/>
-  </session-factory>
-</hibernate-configuration>
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="fciencias" match-schema="public"/>
+  <table-filter match-name="pregunta"/>
+  <table-filter match-name="usuario_sin_validar"/>
+  <table-filter match-name="carrera"/>
+  <table-filter match-name="respuesta"/>
+  <table-filter match-name="categoria"/>
+  <table-filter match-name="usuario"/>
+  <table-filter match-name="administrador"/>
+</hibernate-reverse-engineering>
