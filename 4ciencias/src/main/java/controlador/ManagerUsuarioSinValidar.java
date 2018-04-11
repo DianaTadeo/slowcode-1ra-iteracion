@@ -45,7 +45,7 @@ public class ManagerUsuarioSinValidar {
 
     public int agregaUSV(String nombre, String email, String password,
             String conf_password) {
-        if (!password.equals(conf_password)) {
+        if (!comparaPass(password, conf_password)) {
             return -1;
         }
         email = formateaEmail(email);
@@ -99,5 +99,9 @@ public class ManagerUsuarioSinValidar {
         } else {
             return null;
         }
+    }
+    
+    public boolean comparaPass(String password1, String password2){
+        return password1.equals(password2);
     }
 }

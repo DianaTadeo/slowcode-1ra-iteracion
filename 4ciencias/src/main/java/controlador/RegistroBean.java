@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -54,12 +55,24 @@ public class RegistroBean implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = DigestUtils.sha256Hex(password);
     }
 
     public void setConf_password(String conf_password) {
-        this.conf_password = conf_password;
+        this.conf_password = DigestUtils.sha256Hex(conf_password);
     }
     
-    
+    public String registraUSV(){
+        ManagerUsuarioSinValidar MUSV = new ManagerUsuarioSinValidar();
+        //password = DigestUtils.sha256Hex(password);
+        //conf_password = DigestUtils.sha256Hex(conf_password);
+        if(MUSV.agregaUSV(nombre, email, password, conf_password) >= 0){
+            return "valida_correo";
+        }
+        else{
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("Vales verga krnal"));
+            return "registro";
+        }
+    }
 }
