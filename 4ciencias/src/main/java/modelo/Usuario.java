@@ -24,8 +24,16 @@ public class Usuario  implements java.io.Serializable {
 
     public Usuario() {
     }
-
 	
+    public Usuario(String nombre, String email, String password, Date fechaRegistro,
+            boolean esAdmin) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+        this.fechaRegistro = fechaRegistro;
+        this.esAdmin = esAdmin;
+    }
+    
     public Usuario(int id, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin) {
         this.id = id;
         this.nombre = nombre;
