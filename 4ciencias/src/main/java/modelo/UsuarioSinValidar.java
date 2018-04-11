@@ -23,6 +23,12 @@ public class UsuarioSinValidar  implements java.io.Serializable {
        this.email = email;
        this.password = password;
     }
+    
+    public UsuarioSinValidar(String nombre, String email, String password){
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+    }
    
     public int getId() {
         return this.id;
