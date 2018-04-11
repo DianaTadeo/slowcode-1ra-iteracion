@@ -49,7 +49,7 @@ public class ManagerUsuario {
 
         try {
             tx = session.beginTransaction();
-            String query = "from Usuario U where"
+            String query = "from Usuario U where "
                     + "U.email = '" + email + "'";
             resultado = session.createQuery(query).list();
             tx.commit();

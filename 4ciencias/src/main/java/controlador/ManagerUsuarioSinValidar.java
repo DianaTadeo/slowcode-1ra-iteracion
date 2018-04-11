@@ -73,7 +73,7 @@ public class ManagerUsuarioSinValidar {
 
         try {
             tx = session.beginTransaction();
-            String query = "from UsuarioSinValidar USV where"
+            String query = "from UsuarioSinValidar USV where "
                     + "USV.email = '" + email + "'";
             resultado = session.createQuery(query).list();
             tx.commit();
