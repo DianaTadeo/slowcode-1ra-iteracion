@@ -17,11 +17,8 @@ create table usuario(
        email varchar(100) unique not null,
        password char(64) not null,
        fecha_registro timestamp not null,
-       id_carrera int references carrera(id)
-);
-
-create table administrador(
-       id serial primary key references usuario(id)
+       id_carrera int references carrera(id),
+       es_admin boolean not null
 );
 
 create table categoria(

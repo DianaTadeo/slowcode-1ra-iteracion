@@ -1,5 +1,5 @@
 package modelo;
-// Generated Apr 10, 2018 7:46:24 PM by Hibernate Tools 4.3.1
+// Generated Apr 10, 2018 8:32:22 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -18,30 +18,31 @@ public class Usuario  implements java.io.Serializable {
      private String email;
      private String password;
      private Date fechaRegistro;
+     private boolean esAdmin;
      private Set preguntas = new HashSet(0);
-     private Administrador administrador;
      private Set respuestas = new HashSet(0);
 
     public Usuario() {
     }
 
 	
-    public Usuario(int id, String nombre, String email, String password, Date fechaRegistro) {
+    public Usuario(int id, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.password = password;
         this.fechaRegistro = fechaRegistro;
+        this.esAdmin = esAdmin;
     }
-    public Usuario(int id, Carrera carrera, String nombre, String email, String password, Date fechaRegistro, Set preguntas, Administrador administrador, Set respuestas) {
+    public Usuario(int id, Carrera carrera, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin, Set preguntas, Set respuestas) {
        this.id = id;
        this.carrera = carrera;
        this.nombre = nombre;
        this.email = email;
        this.password = password;
        this.fechaRegistro = fechaRegistro;
+       this.esAdmin = esAdmin;
        this.preguntas = preguntas;
-       this.administrador = administrador;
        this.respuestas = respuestas;
     }
    
@@ -87,19 +88,19 @@ public class Usuario  implements java.io.Serializable {
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
     }
+    public boolean isEsAdmin() {
+        return this.esAdmin;
+    }
+    
+    public void setEsAdmin(boolean esAdmin) {
+        this.esAdmin = esAdmin;
+    }
     public Set getPreguntas() {
         return this.preguntas;
     }
     
     public void setPreguntas(Set preguntas) {
         this.preguntas = preguntas;
-    }
-    public Administrador getAdministrador() {
-        return this.administrador;
-    }
-    
-    public void setAdministrador(Administrador administrador) {
-        this.administrador = administrador;
     }
     public Set getRespuestas() {
         return this.respuestas;

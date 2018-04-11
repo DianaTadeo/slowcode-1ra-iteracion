@@ -41,11 +41,10 @@ Contributor(s):
 -->
 <hibernate-reverse-engineering>
   <schema-selection match-catalog="fciencias" match-schema="public"/>
-  <table-filter match-name="pregunta"/>
-  <table-filter match-name="usuario_sin_validar"/>
-  <table-filter match-name="carrera"/>
-  <table-filter match-name="respuesta"/>
   <table-filter match-name="categoria"/>
+  <table-filter match-name="usuario_sin_validar"/>
   <table-filter match-name="usuario"/>
-  <table-filter match-name="administrador"/>
+  <table-filter match-name="respuesta"/>
+  <table-filter match-name="carrera"/>
+  <table-filter match-name="pregunta"/>
 </hibernate-reverse-engineering>

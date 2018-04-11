@@ -52,7 +52,6 @@ Contributor(s):
     <mapping resource="modelo/Respuesta.hbm.xml"/>
     <mapping resource="modelo/Categoria.hbm.xml"/>
     <mapping resource="modelo/UsuarioSinValidar.hbm.xml"/>
-    <mapping resource="modelo/Administrador.hbm.xml"/>
     <mapping resource="modelo/Carrera.hbm.xml"/>
     <mapping resource="modelo/Usuario.hbm.xml"/>
     <mapping resource="modelo/Pregunta.hbm.xml"/>
