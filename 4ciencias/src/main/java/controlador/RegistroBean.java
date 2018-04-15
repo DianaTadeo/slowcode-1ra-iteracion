@@ -61,18 +61,40 @@ public class RegistroBean implements Serializable {
     public void setConf_password(String conf_password) {
         this.conf_password = DigestUtils.sha256Hex(conf_password);
     }
-    
-    public String registraUSV(){
+
+    public String registraUSV() {
         ManagerUsuarioSinValidar MUSV = new ManagerUsuarioSinValidar();
-        //password = DigestUtils.sha256Hex(password);
-        //conf_password = DigestUtils.sha256Hex(conf_password);
-        if(MUSV.agregaUSV(nombre, email, password, conf_password) >= 0){
-            return "valida_correo";
-        }
-        else{
+        ManagerUsuario MU = new ManagerUsuario();
+
+        if (!MUSV.comparaPass(password, conf_password)) {
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage("Vales verga krnal"));
+                    new FacesMessage("Las contraseñas no coinciden"));
             return "registro";
+        } else if(password.equals(DigestUtils.sha256Hex(""))){
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("La contraseña no puede quedar vacia"));
+            return "registro";
+        } else if (MUSV.formateaEmail(email) == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("El correo proporcionado no pertenece "
+                            + "al dominio @ciencias.unam.mx"));
+            return "registro";
+        } else if (MUSV.existeUSV(email) >= 0 || MU.existeUsuario(email) >= 0) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage("El correo proporcionado ya está "
+                            + "registrado en el sistema"));
+            return "registro";
+        } else {
+            int id_USV = MUSV.agregaUSV(nombre, email, password, conf_password);
+            if (id_USV >= 0) {
+                
+                return "valida_correo";
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage("Datos incorrectos. Por favor intente "
+                                + "nuevamente"));
+                return "registro";
+            }
         }
     }
 }
