@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:pm="http://primefaces.org/mobile">
+    
+        <h:head>           
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <link rel="stylesheet" type="text/css" href="../Estilos/estilos-pregunta.css"/>                      
+        </h:head>
+
+        <h:body>   
+            <div name="pregunta" id="centered-container" class="ui-fluid">                                                                                           
+               
+                <h:form>  
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
+                                 styleClass="ui-panelgrid-blank">                                                                      
+                        
+                        <p:graphicImage url="/Media/usuario.png" width="100" height="100" />
+                        <p:panelGrid  columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
+                                 styleClass="ui-panelgrid-blank"> 
+                            <p:commandButton style="float: left" value="Publicar" action="#{preguntaBean.insertarPregunta}" icon="ui-icon-check" />
+                            <p:commandButton style="float: right" value="Cancelar" action="/faces/ListadoPreguntas.xhtml" icon="ui-icon-closethick" />                            
+                        </p:panelGrid>
+                        
+                        
+                        <p:outputLabel id="titulo" value="Título" style="font-size: 20px; float: right"/>                
+                        <p:inputTextarea rows="2" cols="40" autoResize="false" value="#{preguntaBean.titulo}" />
+                        
+                        <p:outputLabel id="categoria" value="Categoría" style="font-size: 20px; float: right" />                                                                                                  
+                        <p:selectOneMenu id="selector" value="#{preguntaBean.nombreCategoria}" 
+                                         panelStyle="width:100px" effect="fade" var="t" style="width:425px" filter="true" 
+                                         filterMatchMode="startsWith">                               
+                            <f:selectItems value="#{categoriaBean.categorias}" var="categoria" itemLabel="#{categoria.nombre}" itemValue="#{categoria.nombre}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel id="contenido" value="Contenido" style="font-size: 20px; float: right" />                                                                                                  
+                        <p:inputTextarea rows="6" cols="40" autoResize="false" value="#{preguntaBean.contenido}"/>                        
+                        
+                        <p:outputLabel value=""/>                                                                                                  
+                        
+                    </p:panelGrid>
+                    <br/>
+                    <hr/>
+                </h:form>  
+            </div>
+        </h:body>        
+           
+</html>
+
