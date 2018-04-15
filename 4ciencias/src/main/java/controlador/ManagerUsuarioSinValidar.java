@@ -89,6 +89,42 @@ public class ManagerUsuarioSinValidar {
         id = ((UsuarioSinValidar) resultado.get(0)).getId();
         return id;
     }
+    
+    public UsuarioSinValidar obtenUSV(int id){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+        UsuarioSinValidar usv = null;
+
+        try {
+            tx = session.beginTransaction();
+            usv = (UsuarioSinValidar) session.get("modelo.UsuarioSinValidar", id);
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+        return usv;
+    }
+    
+    public void eliminaUSV(UsuarioSinValidar usv){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.delete(usv);
+            tx.commit();
+        } catch (HibernateException he) {
+            if (tx != null) {
+                tx.rollback();
+            }
+        } finally {
+            session.close();
+        }
+    }
 
     //Intenta dar un formato correcto al correo proporcionado. Si no es parte
     //del dominio @ciencias.unam.mx devuelve null

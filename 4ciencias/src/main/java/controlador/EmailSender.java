@@ -24,7 +24,7 @@ public class EmailSender {
     public static void mandaValidacion(String to, int id) {
         String subject = "¡Verifica tu cuenta en 4ciencias!";
         String body = "Para verificar tu cuenta, entra al siguiente link:\n" +
-                    "\t localhost:8080/4ciencias/verifica_email?id=" + id;
+                    "\t localhost:8080/4ciencias/valida_cuenta.xhtml?id=" + id;
         
         Email email = EmailBuilder.startingBlank()
                 .from(de_nombre, de_correo)

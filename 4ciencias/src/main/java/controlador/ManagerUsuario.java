@@ -28,7 +28,7 @@ public class ManagerUsuario {
             tx = session.beginTransaction();
             //Esto está mal
             Usuario usuario = new Usuario(nombre, email, password,
-                    new Date(System.currentTimeMillis()), true);
+                    new Date(System.currentTimeMillis()), false);
             usuario_id = (Integer) session.save(usuario);
             tx.commit();
             

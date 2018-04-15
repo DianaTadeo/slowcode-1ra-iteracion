@@ -88,7 +88,7 @@ public class RegistroBean implements Serializable {
             int id_USV = MUSV.agregaUSV(nombre, email, password, conf_password);
             if (id_USV >= 0) {
                 EmailSender.mandaValidacion(email, id_USV);
-                return "valida_correo";
+                return "mensaje_validacion";
             } else {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage("Datos incorrectos. Por favor intente "
