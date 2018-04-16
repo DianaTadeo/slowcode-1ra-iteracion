@@ -28,7 +28,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <h:form>
-                        <p:splitButton value="#{loginBean.email}" 
+                        <p:splitButton value="#{sessionScope.username}" 
                                        action="/restringido/principal" 
                                        icon="ui-icon-person" 
                                        rendered="#{sessionScope.username != null}">

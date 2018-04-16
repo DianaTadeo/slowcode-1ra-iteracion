@@ -7,6 +7,7 @@ package controlador;
 
 import java.util.List;
 import modelo.HibernateUtil;
+import modelo.Usuario;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,10 +18,10 @@ import org.hibernate.Transaction;
  */
 public class ManagerU {
      
-    public boolean exists(String email, String password) {
+    public Usuario dameUsuario(String email, String password) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
-        String hql = "Select U.id FROM Usuario U where U.email = '" + email + 
+        String hql = "FROM Usuario U where U.email = '" + email + 
                      "' AND U.password = '" + password + "'";
         List resultado = null;
         try {
@@ -35,6 +36,11 @@ public class ManagerU {
         finally {
             sesion.close();
         }
-        return (resultado != null && !resultado.isEmpty());
+        if(resultado != null && !resultado.isEmpty()){
+            return (Usuario) resultado.get(0);
+        }
+        else{
+            return null;
+        }
     }
 }

@@ -6,14 +6,14 @@ create table carrera(
 
 create table usuario_sin_validar(
        id serial primary key,
-       nombre varchar(100) not null,
+       nombre varchar(100) unique not null,
        email varchar(100) not null unique,
        password char(64) not null
 );
 
 create table usuario(
        id serial primary key,
-       nombre varchar(100) not null,
+       nombre varchar(100) unique not null,
        email varchar(100) unique not null,
        password char(64) not null,
        fecha_registro timestamp not null,

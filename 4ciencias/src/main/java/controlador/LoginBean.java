@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.HibernateUtil;
+import modelo.Usuario;
 import org.hibernate.internal.SessionImpl;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -65,10 +66,13 @@ public class LoginBean implements Serializable {
                            "Intenta mas tarde...");
             return;                                
         }
-        ManagerU usuario = new ManagerU();
-        if (usuario.exists(email, password)) {
+        ManagerU MU = new ManagerU();
+        Usuario usuario = MU.dameUsuario(email, password);
+        if (usuario != null) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
-            sesion.setAttribute("username", email);
+            sesion.setAttribute("email", usuario.getEmail());
+            sesion.setAttribute("username", usuario.getNombre());
+            sesion.setAttribute("userid", usuario.getId());
             FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/principal.xhtml");
@@ -80,6 +84,8 @@ public class LoginBean implements Serializable {
     public void resultadoLogout() throws IOException {
         HttpSession sesion = UtilidadHTTP.obtenSesion();
         sesion.removeAttribute("username");
+        sesion.removeAttribute("email");
+        sesion.removeAttribute("userid");
         sesion.invalidate();
         FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
