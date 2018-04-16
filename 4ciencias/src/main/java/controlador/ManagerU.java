@@ -17,10 +17,10 @@ import org.hibernate.Transaction;
  */
 public class ManagerU {
      
-    public boolean exists(String nombre, String password) {
+    public boolean exists(String email, String password) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
-        String hql = "Select U.id FROM Usuario U where U.nombre = '" + nombre + 
+        String hql = "Select U.id FROM Usuario U where U.email = '" + email + 
                      "' AND U.password = '" + password + "'";
         List resultado = null;
         try {

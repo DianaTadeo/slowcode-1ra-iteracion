@@ -15,6 +15,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import modelo.HibernateUtil;
 import org.hibernate.internal.SessionImpl;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -49,7 +50,7 @@ public class LoginBean implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = DigestUtils.sha256Hex(password);
     }
     
     public void muestraMensaje(FacesMessage.Severity severidad, String mensaje, 
@@ -65,9 +66,9 @@ public class LoginBean implements Serializable {
             return;                                
         }
         ManagerU usuario = new ManagerU();
-        if (usuario.exists(nombre, password)) {
+        if (usuario.exists(email, password)) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
-            sesion.setAttribute("username", nombre);
+            sesion.setAttribute("username", email);
             FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/principal.xhtml");

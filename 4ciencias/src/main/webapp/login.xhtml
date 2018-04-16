@@ -28,7 +28,7 @@
                 </f:facet>
                 <f:facet name="right">
                     <h:form>
-                        <p:splitButton value="#{loginBean.nombre}" 
+                        <p:splitButton value="#{loginBean.email}" 
                                        action="/restringido/principal" 
                                        icon="ui-icon-person" 
                                        rendered="#{sessionScope.username != null}">
@@ -55,18 +55,18 @@
 
                     <h:panelGrid id="loginPanel" columns="2">
 
-                        <h:outputText value="Usuario: " />
+                        <h:outputText value="Email: " />
 
-                        <p:inputText id="username" 
-                                     value="#{loginBean.nombre}" 
+                        <p:inputText id="email" 
+                                     value="#{loginBean.email}" 
                                      required="true"
-                                     requiredMessage="No introduciste tu nombre!!!"
+                                     requiredMessage="No introduciste tu correo!!!"
                                      >
                         </p:inputText>
 
                         <p:spacer></p:spacer>
 
-                        <p:message for="username" ></p:message>
+                        <p:message for="email" ></p:message>
 
                         <h:outputText value="Password: " />
 
@@ -92,7 +92,7 @@
                         
                         <p:spacer></p:spacer>
 
-                        <p:button outcome="/publico/registro" value="Registro"  style="align-self: center"></p:button>
+                        <p:button outcome="registro" value="Registro"  style="align-self: center"></p:button>
 
                     </h:panelGrid>
 
