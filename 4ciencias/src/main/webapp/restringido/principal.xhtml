@@ -32,7 +32,7 @@
                                        icon="ui-icon-person" 
                                        rendered="#{sessionScope.username != null}">
                             <p:menuitem value="Perfil" icon="ui-icon-lightbulb" />
-                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
                             <p:separator />
                             <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
                         </p:splitButton>

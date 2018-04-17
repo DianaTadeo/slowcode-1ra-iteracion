@@ -43,4 +43,12 @@ public class UtilidadHTTP {
         else
             return null;
       }
+      
+      public static Integer obtenerIdUsuario() {
+          HttpSession session = obtenSesion();
+        if ( session != null )
+            return (Integer) session.getAttribute("userid");
+        else
+            return null;
+      }
 }

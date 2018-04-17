@@ -23,6 +23,13 @@ public class Pregunta  implements java.io.Serializable {
     public Pregunta() {
     }
 
+    public Pregunta(Categoria categoria, Usuario usuario, String titulo, String contenido, Date fecha) {       
+       this.categoria = categoria;
+       this.usuario = usuario;
+       this.titulo = titulo;
+       this.contenido = contenido;
+       this.fecha = fecha;       
+    }
 	
     public Pregunta(int id, Usuario usuario, String titulo, Date fecha) {
         this.id = id;
@@ -30,6 +37,13 @@ public class Pregunta  implements java.io.Serializable {
         this.titulo = titulo;
         this.fecha = fecha;
     }
+    
+    public Pregunta(Usuario usuario, String titulo, Date fecha) {        
+        this.usuario = usuario;
+        this.titulo = titulo;
+        this.fecha = fecha;
+    }
+    
     public Pregunta(int id, Categoria categoria, Usuario usuario, String titulo, String contenido, Date fecha, Set respuestas) {
        this.id = id;
        this.categoria = categoria;
