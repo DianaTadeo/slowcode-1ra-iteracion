@@ -45,7 +45,7 @@
             <p:spacer></p:spacer>
             
             <h:form>
-                <p:fieldset legend="Preguntas Recientes" style="margin-bottom:20px; width: 98%" >
+                <p:fieldset legend="Preguntas Recientes" style="margin-bottom:20px" >
                     <p:carousel value="#{generalBean.dameTop()}" var="pregunta" itemStyle="text-align:center; width: 1.9%" circular="true" numVisible="3"
                                 autoPlayInterval="4500" >
                         <p:panel header="#{pregunta.titulo}"  footer="Fecha: #{pregunta.fecha}">
@@ -64,7 +64,7 @@
             <p:spacer></p:spacer>
             
             <h:form >
-                <p:fieldset legend="Anuncios" style="margin-bottom:20px; width: 98%" >
+                <p:fieldset legend="Anuncios" style="margin-bottom:20px" >
                     <h:panelGrid columns="4" cellpadding="15">
                         <p:graphicImage url="http://www.revista.unam.mx/vol.15/num7/art55/img/7a.jpg" styleClass="content" width="400px"/>
                         <p:graphicImage url="http://biologia.fciencias.unam.mx/web/listas/TallerFinanzasPersonales.jpg" styleClass="content" width="400px"/>
@@ -75,7 +75,7 @@
             </h:form>
             
             <h:form>
-                <p:fieldset legend="TVUNAM" style="margin-bottom:20px; width: 98%">
+                <p:fieldset legend="TVUNAM" style="margin-bottom:20px">
                     <h:panelGrid columns="2" cellpadding="15">
                         <p:media value="http://www.youtube.com/v/aDc45aXypcs" width="480" height="400" player="flash"/>
                         <p:media value="http://www.youtube.com/v/Q79QxzKmep4" width="480" height="400" player="flash"/>
