@@ -66,7 +66,7 @@ public class LoginBean implements Serializable {
                            "Intenta mas tarde...");
             return;                                
         }
-        ManagerU MU = new ManagerU();
+        ManagerUsuario MU = new ManagerUsuario();
         Usuario usuario = MU.dameUsuario(email, password);
         if (usuario != null) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();

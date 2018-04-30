@@ -20,9 +20,9 @@ import org.hibernate.Transaction;
  *
  * @author diana
  */
-@ManagedBean(name ="managerR")
+@ManagedBean(name ="managerRespuesta")
 @ApplicationScoped
-public class ManagerR {
+public class ManagerRespuesta {
     
     /**Se encarga de agregar una respuesta a la base de datos
      * @param r es una platilla de la repsuesta que será agregada

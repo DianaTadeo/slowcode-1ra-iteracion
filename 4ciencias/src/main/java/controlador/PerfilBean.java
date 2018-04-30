@@ -29,7 +29,7 @@ public class PerfilBean implements Serializable {
 
     public String fetchPasswordLength() {
         String nombre = UtilidadHTTP.obtenUsuario();
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         int len = manager.getUserPwdLength(nombre);
         String res = "";
         while (len > 0) {
@@ -41,7 +41,7 @@ public class PerfilBean implements Serializable {
 
     public String fetchEmail() {
         String nombre = UtilidadHTTP.obtenUsuario();
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         return manager.getUserEmail(nombre);
     }
 }

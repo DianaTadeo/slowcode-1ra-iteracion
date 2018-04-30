@@ -64,7 +64,7 @@ public class EditarPerfilBean implements Serializable {
     
 
     public String validaNombre() {
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         if (manager.nombreExiste(this.nombre)) {
             return "/restringido/mensajes/err/nombre1";
         }
@@ -78,7 +78,7 @@ public class EditarPerfilBean implements Serializable {
         } else if (this.password.length() < 4) {
             return "/restringido/mensajes/err/pwd2";
         }
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         String uid = manager.getUserId(UtilidadHTTP.obtenUsuario());
         return this.actualizaPassword(uid, this.password);
     }
@@ -87,13 +87,13 @@ public class EditarPerfilBean implements Serializable {
         if (!this.email.contains("@ciencias.unam.mx")) {
             return "/restringido/mensajes/err/email1";
         }
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         String uid = manager.getUserId(UtilidadHTTP.obtenUsuario());
         return this.actualizaEmail(uid, this.email);
     }
 
     public String actualizaNombre(String uid, String nuevo) {
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         String queryResult = manager.editarNombre(uid, nuevo);
         if ( queryResult == "SUCCESS") {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
@@ -108,7 +108,7 @@ public class EditarPerfilBean implements Serializable {
     }
 
     public String actualizaPassword(String uid, String nuevo) {
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         String queryResult = manager.editarPassword(uid, nuevo);
         if (queryResult == "SUCCESS") {
             return "/restringido/mensajes/exito";
@@ -120,7 +120,7 @@ public class EditarPerfilBean implements Serializable {
     }
 
     public String actualizaEmail(String uid, String nuevo) {
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         String queryResult = manager.editarEmail(uid, nuevo);
         if (queryResult == "SUCCESS") {
             return "/restringido/mensajes/exito";

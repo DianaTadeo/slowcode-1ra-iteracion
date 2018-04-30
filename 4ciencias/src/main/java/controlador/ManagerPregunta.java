@@ -121,5 +121,23 @@ public class ManagerPregunta {
         return (Usuario) o;
     }
     
+    public List<Pregunta> todas() {
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        List <Pregunta> resultado = null;
+        Transaction tr = null;
+        try {
+            tr = sesion.beginTransaction();
+            resultado = sesion.createCriteria(Pregunta.class).list();
+            tr.commit();
+        }
+        catch(HibernateException he) {
+            if (tr != null) 
+                tr.rollback();
+        }
+        finally {
+            sesion.close();
+        }
+        return resultado;
+    }
 }
 
