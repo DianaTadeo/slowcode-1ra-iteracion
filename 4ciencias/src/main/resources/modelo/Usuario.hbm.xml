@@ -26,6 +26,9 @@
         <property name="esAdmin" type="boolean">
             <column name="es_admin" not-null="true" />
         </property>
+        <property name="foto" type="binary">
+            <column name="foto" />
+        </property>
         <set name="preguntas" table="pregunta" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="id_usuario" not-null="true" />
