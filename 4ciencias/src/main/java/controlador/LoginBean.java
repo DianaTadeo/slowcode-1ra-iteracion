@@ -61,25 +61,26 @@ public class LoginBean implements Serializable {
     }
     
     public void resultadoLogin() throws IOException {
-        if (!this.hayConexion()) {
-            muestraMensaje(FacesMessage.SEVERITY_FATAL, "No hay Conexion!!!",
-                           "Intenta mas tarde...");
-            return;                                
-        }
-        ManagerUsuario MU = new ManagerUsuario();
-        Usuario usuario = MU.dameUsuario(email, password);
-        if (usuario != null) {
-            HttpSession sesion = UtilidadHTTP.obtenSesion();
-            sesion.setAttribute("email", usuario.getEmail());
-            sesion.setAttribute("username", usuario.getNombre());
-            sesion.setAttribute("userid", usuario.getId());
-            FacesContext.getCurrentInstance().getExternalContext().
-                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/principal.xhtml");
-        }
-        muestraMensaje(FacesMessage.SEVERITY_WARN, 
-                       "Usuario/Contraseña invalid@(s)", "Intenta de Nuevo!");
-    }
+       if (!this.hayConexion()) {
+           muestraMensaje(FacesMessage.SEVERITY_FATAL, "No hay Conexion!!!",
+                          "Intenta mas tarde...");
+           return;                                
+       }
+       ManagerUsuario MU = new ManagerUsuario();
+       Usuario usuario = MU.dameUsuario(email, password);
+       if (usuario != null) {
+           HttpSession sesion = UtilidadHTTP.obtenSesion();
+           sesion.setAttribute("email", usuario.getEmail());
+           sesion.setAttribute("username", usuario.getNombre());
+           sesion.setAttribute("userid", usuario.getId());
+           sesion.setAttribute("admin", usuario.isEsAdmin());
+           FacesContext.getCurrentInstance().getExternalContext().
+               redirect(UtilidadHTTP.obtenSolicitud().getContextPath() +
+                        "/restringido/principal.xhtml");
+       }
+       muestraMensaje(FacesMessage.SEVERITY_WARN,
+                      "Usuario/Contraseña invalid@(s)", "Intenta de Nuevo!");
+   }
     
     public void resultadoLogout() throws IOException {
         HttpSession sesion = UtilidadHTTP.obtenSesion();

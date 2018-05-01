@@ -18,24 +18,26 @@
                            background-size: cover;">        
             <p:toolbar id="tb">
                 <f:facet name="left">
-                    <p:button outcome="principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
                     <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
                     <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
                 </f:facet>
-                <f:facet name="right">
+                <f:facet name="right" >
                     <h:form>
+                        <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
                         <p:splitButton value="#{sessionScope.username}" 
                                        action="/restringido/perfil" 
                                        icon="ui-icon-person" 
                                        rendered="#{sessionScope.username != null}">
-                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" />
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
                             <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
                             <p:separator />
                             <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
                         </p:splitButton>
+                        <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginBean.resultadoLogout()}" rendered="#{sessionScope.userid != null}"/>
                     </h:form>
                 </f:facet>
             </p:toolbar>
@@ -46,15 +48,17 @@
             
             <h:form>
                 <p:fieldset legend="Preguntas Recientes" style="margin-bottom:20px" >
-                    <p:carousel value="#{generalBean.dameTop()}" var="pregunta" itemStyle="text-align:center; width: 1.9%" circular="true" numVisible="3"
+                    <p:carousel value="#{preguntaBean.preguntas}" var="pregunta" itemStyle="text-align:center; width: 2.0%" circular="true" numVisible="2"
                                 autoPlayInterval="4500" >
                         <p:panel header="#{pregunta.titulo}"  footer="Fecha: #{pregunta.fecha}">
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Contenido: "/>
                                 <h:outputText value="#{pregunta.contenido}" style="color: olive; text-align: center"/>
                                 <h:outputText value="Por:  "/>
-                                <h:outputText value="#{pregunta.usuario.nombre}" style="color:navy; text-align: center"/>
+                                <h:outputText value="#{pregunta.usuario.nombre}" style="color: deeppink; text-align: center"/>
                             </h:panelGrid>
+                            <p:commandButton id="mas" value="Ver mas" 
+                                     action="#{preguntaBean.mostrarPregunta(pregunta.id)}" icon="ui-icon-check" />
                         </p:panel>
                     </p:carousel>
                 </p:fieldset>
@@ -63,13 +67,23 @@
             <p:spacer></p:spacer>
             <p:spacer></p:spacer>
             
+            <div  align="center">
+                <p:commandButton id="añadirP" 
+                                 value="Añadir Pregunta" 
+                                 icon="ui-icon-plusthick" 
+                                 action="#{preguntaBean.mostrarAgregarPregunta}"
+                                 style="width: 300px; height:100px; font-size:  25px"/>
+            </div>
+            
+            <p:spacer></p:spacer>
+            <p:spacer></p:spacer>
+            
             <h:form >
-                <p:fieldset legend="Anuncios" style="margin-bottom:20px" >
+                <p:fieldset legend="Anuncios" style="margin-bottom:20px"  >
                     <h:panelGrid columns="4" cellpadding="15">
                         <p:graphicImage url="http://www.revista.unam.mx/vol.15/num7/art55/img/7a.jpg" styleClass="content" width="400px"/>
                         <p:graphicImage url="http://biologia.fciencias.unam.mx/web/listas/TallerFinanzasPersonales.jpg" styleClass="content" width="400px"/>
                         <p:graphicImage url="https://lh3.googleusercontent.com/-Z4wFC4CiMKs/Tz1_Z2ha-HI/AAAAAAAAD70/eyBWHavb1Go/w800-h800/oracle-at-ciencias.png" styleClass="content" width="400px"/>
-                        <p:graphicImage url="http://www.pve.unam.mx/titulacion/opcionestitulacion.jpg" styleClass="content" width="400px"/>
                     </h:panelGrid>
                 </p:fieldset>
             </h:form>
