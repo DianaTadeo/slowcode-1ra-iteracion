@@ -13,54 +13,63 @@
             </f:facet>
         </h:head>
 
-        <h:body>
-
-             <h:form id="formaRegistro">          
+        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
+                       background-size: cover;">
+            <p:toolbar id="tb">
+                <f:facet name="left">
+                    <p:button outcome="login" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
+                    <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
+                </f:facet>
+                <f:facet name="right">
+                    <h:form>
+                        <p:splitButton value="#{sessionScope.username}" 
+                                       action="/restringido/principal" 
+                                       icon="ui-icon-person" 
+                                       rendered="#{sessionScope.username != null}">
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" />
+                            <p:separator />
+                            <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
+                        </p:splitButton>
+                    </h:form>
+                </f:facet>
+            </p:toolbar>
+            <p:sticky target="tb" />
+            
+            
+            <h:form id="formaRegistro" style="margin: 0 auto; margin-top: 100px">          
                 <p:growl id="msg" showDetail="true" life="3000" />
-                <p:panel header="Registrate" style="width: 360px;">
+                <p:panel header="Registrate" style="width: 400px; margin: 0 auto">
 
-                    <h:panelGrid id="panelRegistro" columns="2">
+                    <h:panelGrid id="panelRegistro" columns="2" style="margin: 0 auto">
 
-                        <h:outputText value="Nombre:" />
-
-                        <p:inputText id="nombre" value="#{registroBean.nombre}" ></p:inputText>
-
-                        <p:spacer></p:spacer>
-
-                        <p:message for="nombre" ></p:message>
+                        <h:outputText value="Nombre:"/>
+                        <p:inputText id="nombre" value="#{registroBean.nombre}" />
                         
-                        <h:outputText value="Correo:" />
+                        <p:spacer/><p:spacer/>
+                        
+                        <h:outputText value="Correo:"/>
+                        <p:inputText id="email" value="#{registroBean.email}" />
 
-                        <p:inputText id="email" value="#{registroBean.email}" ></p:inputText>
-
-                        <p:spacer></p:spacer>
-
-                        <p:message for="email" ></p:message>
-
-                        <h:outputText value="Contraseña:" />
-
+                        <p:spacer/><p:spacer/>
+                        
+                        <h:outputText value="Contraseña:"/>
                         <p:password id="password" value="#{registroBean.password}"  
-                                    feedback="true"
-                                    promptLabel="Introduce tu Contraseña." 
-                                    weakLabel="Debil"
-                                    goodLabel="Media" 
-                                    strongLabel="Fuerte"></p:password>
+                                    feedback="true" />
 
-                        <p:spacer></p:spacer>
-
-                        <p:message for="password"></p:message>
-
-                        <h:outputText value="Confirma contraseña:" />
-
+                        <p:spacer/><p:spacer/>
+                        
+                        <h:outputText value="Confirma contraseña:"/>
                         <p:password id="conf_password" value="#{registroBean.conf_password}"  
-                                    feedback="true"></p:password> 
+                                    feedback="true" />
 
-                        <p:spacer></p:spacer>
-
-                        <p:message for="conf_password"></p:message>
-
-                        <p:spacer></p:spacer>
-
+                        <p:spacer/><p:spacer/>
+                        
+                        <p:spacer/>
                         <p:commandButton id="agrega" action="#{registroBean.registraUSV()}" 
                                          value="Registrate" update="formaRegistro" ajax="true"></p:commandButton>
 
