@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-
+    
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -13,9 +13,9 @@
                 <title>4Ciencias</title>
             </f:facet>
         </h:head>
-
-        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
-                       background-size: cover;">
+    
+        <h:body style="background:url(http://somoscultura.mx/wp-content/uploads/2017/11/Ciudad_Universitaria_5535011417-1.jpg) no-repeat center center fixed; 
+                           background-size: cover;">        
             <p:toolbar id="tb">
                 <f:facet name="left">
                     <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
@@ -28,6 +28,7 @@
                 <f:facet name="right" >
                     <h:form>
                         <p:button value="Buscar... " outcome="/busqueda" ></p:button>
+                        <p:button value="Control de Usuarios" outcome="/restringido/administrador/controlUsuarios" rendered="#{sessionScope.admin}" ></p:button>
                         <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
                         <p:splitButton value="#{sessionScope.username}" 
                                        action="/restringido/perfil" 
@@ -43,67 +44,18 @@
                 </f:facet>
             </p:toolbar>
             <p:sticky target="tb" />
-
-             <h:form id="loginForm" rendered="#{sessionScope.username == null}">          
-                 <p:growl id="msg" life="3000" autoUpdate="false" 
-                          globalOnly="true"/>
-                <p:panel style="width: 350px; height: 300px; 
-                                top: 50%;  left: 50%; 
-                                margin: -150px 0 0 -175px;
-                                border: 2px solid dodgerblue; padding: 10px; 
-                                opacity: 0.9; text-align: left; position: absolute;
-                                align-items: center" 
-                         header="Login">
-
-                    <h:panelGrid id="loginPanel" columns="2">
-
-                        <h:outputText value="Email: " />
-
-                        <p:inputText id="email" 
-                                     value="#{loginBean.email}" 
-                                     required="true"
-                                     requiredMessage="No introduciste tu correo!!!"
-                                     >
-                        </p:inputText>
-
-                        <p:spacer></p:spacer>
-
-                        <p:message for="email" ></p:message>
-
-                        <h:outputText value="Password: " />
-
-                        <p:password id="password" 
-                                    value="#{loginBean.password}"  
-                                    feedback="false"
-                                    required="true" 
-                                    requiredMessage="No introduciste el password!!!"
-                                    >
-                        </p:password>
-
-                        <p:spacer></p:spacer>
-
-                        <p:message for="password"></p:message>
-
-                        <p:spacer></p:spacer>
-
-                        <p:commandButton action="#{loginBean.resultadoLogin()}" 
-                                         value="Login" 
-                                         update="loginForm" 
-                                         ajax="true">
-                        </p:commandButton>
-                        
-                        <p:spacer></p:spacer>
-
-                        <p:button outcome="registro" value="Registro"  style="align-self: center"></p:button>
-
-                    </h:panelGrid>
-
-                </p:panel>
-
-            </h:form>
             
+            <p:spacer></p:spacer>
+            <p:spacer></p:spacer>
+            <!-- No encierres en fileupload en nada mas que el body, si no no funciona -->
+            <h:form enctype="multipart/form-data">
+                <p:growl id="messages" showDetail="true" />
+                <p:fileUpload fileUploadListener="#{editarPerfilBean.actualizaFoto}" mode="advanced" dragDropSupport="false"
+                              update="@form" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" auto="true"  transient="false" />
+                <p:graphicImage url="/media/usuario.png" width="100" height="100" rendered="#{perfilBean.fetchPhoto() == null}"/>
+                <p:graphicImage cache="false" value="#{perfilBean.fetchPhoto()}" width="100" height="100" rendered="#{perfilBean.fetchPhoto() != null}"/>
+                <p:commandButton value="Borra Foto" action="#{editarPerfilBean.borraFoto()}" update="@form"/>
+            </h:form>
         </h:body>
-
     </f:view>
 </html>
-

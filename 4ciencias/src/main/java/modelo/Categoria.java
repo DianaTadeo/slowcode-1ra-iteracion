@@ -1,5 +1,5 @@
 package modelo;
-// Generated Apr 10, 2018 8:32:22 PM by Hibernate Tools 4.3.1
+// Generated May 8, 2018 9:46:55 PM by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -18,10 +18,7 @@ public class Categoria  implements java.io.Serializable {
     public Categoria() {
     }
 
-    public Categoria(String nombre) {        
-        this.nombre = nombre;
-    }
-    
+	
     public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
@@ -30,6 +27,9 @@ public class Categoria  implements java.io.Serializable {
        this.id = id;
        this.nombre = nombre;
        this.preguntas = preguntas;
+    }
+    public Categoria(String nombre) {        
+        this.nombre = nombre;
     }
    
     public int getId() {

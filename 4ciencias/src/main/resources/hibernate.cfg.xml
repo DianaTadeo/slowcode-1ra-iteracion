@@ -46,14 +46,15 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/fciencias</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="modelo/UsuarioSinValidar.hbm.xml"/>
+    <mapping resource="modelo/Pregunta.hbm.xml"/>
     <mapping resource="modelo/Respuesta.hbm.xml"/>
     <mapping resource="modelo/Categoria.hbm.xml"/>
-    <mapping resource="modelo/UsuarioSinValidar.hbm.xml"/>
-    <mapping resource="modelo/Carrera.hbm.xml"/>
     <mapping resource="modelo/Usuario.hbm.xml"/>
-    <mapping resource="modelo/Pregunta.hbm.xml"/>
+    <mapping resource="modelo/Carrera.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

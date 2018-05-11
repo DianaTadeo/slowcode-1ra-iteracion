@@ -1,5 +1,5 @@
 package modelo;
-// Generated Apr 10, 2018 8:32:22 PM by Hibernate Tools 4.3.1
+// Generated May 8, 2018 9:46:55 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -19,21 +19,14 @@ public class Usuario  implements java.io.Serializable {
      private String password;
      private Date fechaRegistro;
      private boolean esAdmin;
+     private byte[] foto;
      private Set preguntas = new HashSet(0);
      private Set respuestas = new HashSet(0);
 
     public Usuario() {
     }
+
 	
-    public Usuario(String nombre, String email, String password, Date fechaRegistro,
-            boolean esAdmin) {
-        this.nombre = nombre;
-        this.email = email;
-        this.password = password;
-        this.fechaRegistro = fechaRegistro;
-        this.esAdmin = esAdmin;
-    }
-    
     public Usuario(int id, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin) {
         this.id = id;
         this.nombre = nombre;
@@ -42,7 +35,7 @@ public class Usuario  implements java.io.Serializable {
         this.fechaRegistro = fechaRegistro;
         this.esAdmin = esAdmin;
     }
-    public Usuario(int id, Carrera carrera, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin, Set preguntas, Set respuestas) {
+    public Usuario(int id, Carrera carrera, String nombre, String email, String password, Date fechaRegistro, boolean esAdmin, byte[] foto, Set preguntas, Set respuestas) {
        this.id = id;
        this.carrera = carrera;
        this.nombre = nombre;
@@ -50,8 +43,17 @@ public class Usuario  implements java.io.Serializable {
        this.password = password;
        this.fechaRegistro = fechaRegistro;
        this.esAdmin = esAdmin;
+       this.foto = foto;
        this.preguntas = preguntas;
        this.respuestas = respuestas;
+    }
+    public Usuario(String nombre, String email, String password, Date fechaRegistro,
+            boolean esAdmin) {
+        this.nombre = nombre;
+        this.email = email;
+        this.password = password;
+        this.fechaRegistro = fechaRegistro;
+        this.esAdmin = esAdmin;
     }
    
     public int getId() {
@@ -103,6 +105,13 @@ public class Usuario  implements java.io.Serializable {
     public void setEsAdmin(boolean esAdmin) {
         this.esAdmin = esAdmin;
     }
+    public byte[] getFoto() {
+        return this.foto;
+    }
+    
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
     public Set getPreguntas() {
         return this.preguntas;
     }
@@ -117,9 +126,6 @@ public class Usuario  implements java.io.Serializable {
     public void setRespuestas(Set respuestas) {
         this.respuestas = respuestas;
     }
-
-
-
 
 }
 

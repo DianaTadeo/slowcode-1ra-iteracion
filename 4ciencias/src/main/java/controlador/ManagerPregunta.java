@@ -13,9 +13,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -53,6 +56,33 @@ public class ManagerPregunta {
             resultado.add(pregunta);
         } catch(HibernateException he) {
             if (tr != null)
+                tr.rollback();
+        }
+        finally {
+            sesion.close();
+        }
+        return resultado;
+    }
+    
+    public List<Pregunta> getPreguntas(String contenido) {
+        String cl = contenido.toLowerCase();
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Transaction tr = null;
+        List<Pregunta> resultado = new LinkedList<>();    
+        String[] palabras = contenido.split("\\s+");
+        if (palabras.length == 0)
+            return resultado;
+        try {
+            tr = sesion.beginTransaction();
+            Criteria cr = sesion.createCriteria(Pregunta.class);
+            for (String s : palabras)
+                cr.add(Restrictions.or(Restrictions.like("titulo", s, MatchMode.ANYWHERE).ignoreCase(),
+                                       Restrictions.like("contenido", s, MatchMode.ANYWHERE).ignoreCase()));
+            resultado = cr.list();
+            tr.commit();
+        }
+        catch (HibernateException he) {
+            if (tr != null) 
                 tr.rollback();
         }
         finally {

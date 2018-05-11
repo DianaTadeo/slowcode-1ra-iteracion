@@ -38,7 +38,7 @@ public class RespuestaBean implements Serializable {
 
     
     @ManagedProperty("#{managerR}")
-    private ManagerR myConect;
+    private ManagerRespuesta myConect;
  
     public void eliminaRespuesta(Respuesta respuesta) {
         int id=respuesta.getId();
@@ -142,10 +142,10 @@ public class RespuestaBean implements Serializable {
         this.respuestas = respuestas;
     }    
     
-    public ManagerR getMyConect(){
+    public ManagerRespuesta getMyConect(){
         return this.myConect;
     }
-    public void setMyConect(ManagerR newManager){
+    public void setMyConect(ManagerRespuesta newManager){
         this.myConect= newManager;
     }   
     

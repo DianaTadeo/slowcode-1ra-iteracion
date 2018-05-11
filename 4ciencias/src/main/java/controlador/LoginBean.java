@@ -66,13 +66,14 @@ public class LoginBean implements Serializable {
                            "Intenta mas tarde...");
             return;                                
         }
-        ManagerU MU = new ManagerU();
+        ManagerUsuario MU = new ManagerUsuario();
         Usuario usuario = MU.dameUsuario(email, password);
         if (usuario != null) {
             HttpSession sesion = UtilidadHTTP.obtenSesion();
             sesion.setAttribute("email", usuario.getEmail());
             sesion.setAttribute("username", usuario.getNombre());
             sesion.setAttribute("userid", usuario.getId());
+            sesion.setAttribute("admin", usuario.isEsAdmin());
             FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/principal.xhtml");
@@ -97,8 +98,14 @@ public class LoginBean implements Serializable {
             return ((SessionImpl) HibernateUtil.getSessionFactory().openSession()).
                     connection().isValid(0);
         } 
-        catch (SQLException ex) {
+        catch (Exception ex) {
             return false;
         }
+    }
+    
+    public void redirige(String direccion) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().
+                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
+                         direccion);
     }
 }

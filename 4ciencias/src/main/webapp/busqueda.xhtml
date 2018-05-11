@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>4Ciencias</title>
+            </f:facet>
+        </h:head>
+        <h:body style="background:url(http://somoscultura.mx/wp-content/uploads/2017/11/Ciudad_Universitaria_5535011417-1.jpg) no-repeat center center fixed;
+                background-size: cover;">
+            <p:toolbar id="tb">
+                <f:facet name="left">
+                    <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
+                    <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
+                </f:facet>
+                <f:facet name="right" >
+                    <h:form>
+                        <p:button value="Buscar... " outcome="/busqueda" ></p:button>
+                        <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
+                        <p:splitButton value="#{sessionScope.username}" 
+                                       action="/restringido/perfil" 
+                                       icon="ui-icon-person" 
+                                       rendered="#{sessionScope.username != null}">
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
+                            <p:separator />
+                            <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
+                        </p:splitButton>
+                        <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginBean.resultadoLogout()}" rendered="#{sessionScope.userid != null}"/>
+                    </h:form>
+                </f:facet>
+            </p:toolbar>
+            <p:sticky target="tb" />
+            
+            <p:spacer></p:spacer>
+            <p:spacer></p:spacer>
+             
+            <div  align="center">
+                <h:form id="busqueda" style="width: 65%">
+                    <div  align="center">
+                        <p:inputText style="margin-right:10px" placeholder="Busqueda..." 
+                                         value="#{busquedaBean.contenido}" required="true" 
+                                         requiredMessage="No introduciste factor de Busqueda!!!"/>
+                        <p:commandButton id="busca" 
+                                         icon="ui-icon-search" 
+                                         value="Busca..."
+                                         action="#{busquedaBean.cargaResultados()}"
+                                         ajax="true" update="busqueda"/>
+                    </div>
+                    <p:spacer></p:spacer>
+                    <p:spacer></p:spacer>
+                    <p:growl id="msgs" showDetail="false" />
+                    <p:fieldset legend="Preguntas Relacionadas:" style="margin-bottom:20px">
+                        <p:dataScroller value="#{busquedaBean.resultados}" var="res" chunkSize="10">
+                            <f:facet name="header">
+                                Recorre hacia abajo para cargar mas resultados
+                            </f:facet>
+                            <f:facet name="loader">
+                                <p:commandButton type="button" value="Mas" icon="ui-icon-circle-triangle-s"/>
+                            </f:facet>
+
+                            <h:panelGrid columns="1" style="align-items: stretch">
+                                <p:outputPanel style="float: left">
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <h:outputText value="Titulo:" />
+                                        <h:outputText value="#{res.titulo}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Contenido:" />
+                                        <h:outputText value="#{res.contenido}" style="font-weight: bold"/>
+
+                                        <h:outputText value="Por:" />
+                                        <h:outputText value="#{res.usuario.nombre}" style="font-weight: bold"/>
+                                        <p:commandButton id="mas" value="Ver mas" 
+                                                 action="#{preguntaBean.mostrarPregunta(res.id)}" icon="ui-icon-check" />
+                                    </h:panelGrid>
+                                </p:outputPanel>
+                            </h:panelGrid>
+                            <hr/>
+                        </p:dataScroller>
+                    </p:fieldset>
+                </h:form>
+            </div>
+            
+        </h:body>
+    </f:view>
+    
+</html>

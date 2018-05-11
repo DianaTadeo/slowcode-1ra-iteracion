@@ -136,6 +136,7 @@ public class PreguntaBean {
     }
     
     public void mostrarPregunta(int id) throws IOException {
+        this.id = id;
         ManagerPregunta manager = new ManagerPregunta();
         this.pregunta = manager.getPreguntas(id).get(0);
         FacesContext.getCurrentInstance().getExternalContext()
@@ -148,9 +149,10 @@ public class PreguntaBean {
         ManagerPregunta manager = new ManagerPregunta();
         
         boolean eliminado = manager.eliminarPregunta(id);
-        if (eliminado) 
-            muestraMensaje(FacesMessage.SEVERITY_INFO, "Se ha eliminado tu pregunta.",
-                           "");        
+        if (eliminado) {
+            muestraMensaje(FacesMessage.SEVERITY_INFO, "Se ha eliminado la pregunta.",
+                           "");
+        }
         else muestraMensaje(FacesMessage.SEVERITY_FATAL, "No se ha eliminado la pregunta.",
                            "Intenta mas tarde...");
     }

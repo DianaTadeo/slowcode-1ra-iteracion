@@ -6,7 +6,7 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>excite-bike</param-value>
+        <param-value>pepper-grinder</param-value>
     </context-param>
     <filter>
         <filter-name>FiltroAuntenticacion</filter-name>
@@ -31,6 +31,6 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>login.xhtml</welcome-file>
+        <welcome-file>restringido/principal.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

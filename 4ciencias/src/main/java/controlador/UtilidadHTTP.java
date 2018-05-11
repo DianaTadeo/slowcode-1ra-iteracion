@@ -45,10 +45,18 @@ public class UtilidadHTTP {
       }
       
       public static Integer obtenerIdUsuario() {
-          HttpSession session = obtenSesion();
+        HttpSession session = obtenSesion();
         if ( session != null )
             return (Integer) session.getAttribute("userid");
         else
             return null;
+      }
+      
+      public static boolean esAdmin() {
+        HttpSession session = obtenSesion();
+        if ( session != null )
+            return (boolean) session.getAttribute("admin");
+        else
+            return false;
       }
 }

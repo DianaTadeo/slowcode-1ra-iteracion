@@ -1,5 +1,5 @@
 package modelo;
-// Generated Apr 10, 2018 8:32:22 PM by Hibernate Tools 4.3.1
+// Generated May 8, 2018 9:46:55 PM by Hibernate Tools 4.3.1
 
 
 
@@ -23,7 +23,6 @@ public class UsuarioSinValidar  implements java.io.Serializable {
        this.email = email;
        this.password = password;
     }
-    
     public UsuarioSinValidar(String nombre, String email, String password){
         this.nombre = nombre;
         this.email = email;

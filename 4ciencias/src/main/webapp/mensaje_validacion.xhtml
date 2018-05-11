@@ -13,9 +13,46 @@
             </f:facet>
         </h:head>
 
-        <h:body>
+        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
+                       background-size: cover;">
+            <p:toolbar id="tb">
+                <f:facet name="left">
+                    <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
+                    <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
+                </f:facet>
+                <f:facet name="right" >
+                    <h:form>
+                        <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
+                        <p:splitButton value="#{sessionScope.username}" 
+                                       action="/restringido/perfil" 
+                                       icon="ui-icon-person" 
+                                       rendered="#{sessionScope.username != null}">
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
+                            <p:separator />
+                            <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
+                        </p:splitButton>
+                        <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginBean.resultadoLogout()}" rendered="#{sessionScope.userid != null}"/>
+                    </h:form>
+                </f:facet>
+            </p:toolbar>
+            <p:sticky target="tb" />
 
-            <p>Revisa tu correo electronico para validar tu cuenta</p>
+            <h:form style="margin: 0 auto">
+                <p:panel style="margin: 0 auto; margin-top: 100px; width: 500px">
+                    <h:panelGroup style="display: block; text-align: center">
+                        <h:outputText style="align-self: center; font-size: 30px; margin: 0 auto
+                                         ; text-align: center"
+                          value="Revisa tu correo electronico para validar
+                                 tu cuenta."/>
+                    </h:panelGroup>
+                     
+                </p:panel>
+            </h:form>
             
         </h:body>
 

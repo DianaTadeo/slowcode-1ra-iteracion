@@ -30,28 +30,30 @@ and open the template in the editor.
                            background-size: cover;">        
            <p:toolbar id="tb">
                 <f:facet name="left">
-                    <p:button outcome="principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
                     <span class="ui-separator">
                         <span class="ui-icon ui-icon-grip-dotted-vertical" />
                     </span>
                     <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
                     <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
                 </f:facet>
-                <f:facet name="right">
+                <f:facet name="right" >
                     <h:form>
+                        <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
                         <p:splitButton value="#{sessionScope.username}" 
                                        action="/restringido/perfil" 
                                        icon="ui-icon-person" 
                                        rendered="#{sessionScope.username != null}">
-                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" />
-                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta()}" />
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
                             <p:separator />
                             <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
                         </p:splitButton>
+                        <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginBean.resultadoLogout()}" rendered="#{sessionScope.userid != null}"/>
                     </h:form>
                 </f:facet>
             </p:toolbar>
-        <p:sticky target="tb" />  
+            <p:sticky target="tb" />
                 
         <p:spacer></p:spacer>
         <p:spacer></p:spacer>                                                       
@@ -61,37 +63,35 @@ and open the template in the editor.
             <p:panel style="opacity: 0.9">
             <h:form>
             <p:growl id="msg" life="3000" autoUpdate="false" 
-                          globalOnly="true" sticky="true"/>
-            <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                         styleClass="ui-panelgrid-blank">                                                
+                          globalOnly="true"/>
+            <p:panelGrid columns="2" >                                                
                 
-                    <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                             styleClass="ui-panelgrid-blank">                    
+                    <p:panelGrid columns="1" >                    
                         <f:facet name="header">
-                            <p:graphicImage url="/media/usuario.png" width="100" height="100" />
+                            <p:graphicImage value="#{imagenBean.imagen}" height="100" width="100" rendered="#{imagenBean.imagen != null}" cache="false">
+                                <f:param name="imgid" value="#{usr.id}" />
+                            </p:graphicImage>
                         </f:facet>                   
                         <p:outputLabel id="usuario" style="font-size: 14px; font-weight: bold" 
-                                       value="#{preguntaBean.pregunta.usuario.nombre}"/>                                                                                                                  
+                                       value="#{preguntaBean.pregunta.usuario.nombre}"/>                                                                                                                      
                     </p:panelGrid>
 
-                    <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                             styleClass="ui-panelgrid-blank">            
-                        <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                     styleClass="ui-panelgrid-blank">
-                            <p:outputLabel id="categoria" value="#{preguntaBean.pregunta.categoria.nombre}" 
+                    <p:panelGrid columns="1" >            
+                        <p:panelGrid columns="2" >
+                            <p:outputLabel id="categoria" value="Categoria: #{preguntaBean.pregunta.categoria.nombre}" 
                                            style="font-size: 16px; font-style: italic" />                
                             <p:outputLabel id="fecha" style="font-size: 10px; font-style: italic" 
                                            value="#{preguntaBean.pregunta.fecha.toString()}"/>                                                   
                         </p:panelGrid>                    
-                        <p:outputLabel id="titulo" value="#{preguntaBean.pregunta.titulo}" style="font-weight: bold; font-size: 32px;" />                    
+                        <p:outputLabel id="titulo" value="Titulo: #{preguntaBean.pregunta.titulo}" style="font-weight: bold; font-size: 32px;" />                    
                         <p:outputLabel id="contenido" value="#{preguntaBean.pregunta.contenido}" style="font-size: 20px" />                        
-                       
                     </p:panelGrid>                                                 
                                             
-                        <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                 styleClass="ui-panelgrid-blank"> 
+                        <p:panelGrid columns="1" > 
                                                                 
-                                <p:commandButton value="#{pregunta.id}" icon="ui-icon-trash" id="eliminar" actionListener="#{preguntaBean.eliminarPregunta}" update="msg">                                                   
+                                <p:commandButton value="#{pregunta.id}" icon="ui-icon-trash" 
+                                                 id="eliminar" actionListener="#{preguntaBean.eliminarPregunta}" 
+                                                 update="@all" ajax="true" rendered="#{sessionScope.admin or sessionScope.userid == preguntaBean.pregunta.usuario.id}">                                                   
                                     <p:confirm header="Confirmación" message="¿Desea eliminarla?" icon="ui-icon-alert"/>
                                 </p:commandButton>                                    
                                 
@@ -108,53 +108,55 @@ and open the template in the editor.
             </h:form>
             </p:panel>
         </div> 
-        
         <!--Sección respuestas -->
          <div name="respuestas" id="below-container" class="ui-fluid"> 
              <p:panel style="opacity: 0.9">
-             <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                         styleClass="ui-panelgrid-blank"> 
-                 <h:form>                
-                    <p:messages id="messages" showDetail="true" closable="true"/>
+                <p:panelGrid columns="1" > 
+                    <h:form>
+                       <p:outputPanel id="XD">           
+                           <p:dataScroller id="lista-respuestas" value="#{respuestaBean.respuestas}" 
+                                           var="resp"  mode="inline" 
+                                           chunkSize="10" scrollHeight="300">                              
+                               <p:growl id="messages2" showDetail="true"/>
+                               <f:facet name="header">
+                                   Comentarios
+                               </f:facet>
+                               <h:panelGrid columns="2" style="width:100%" > 
+                                   <p:outputPanel>
+                                       <h:panelGrid columns="2" cellpadding="5"> 
 
-                    <p:outputLabel value="Deja tu comentario a esta pregunta" style="font-weight: bold; font-size: 18px;" />   	
-                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                             styleClass="ui-panelgrid-blank">   
-                        <p:inputTextarea rows="7" cols="45" value="#{respuestaBean.contenido}"/>
-                        <p:commandButton value="Enviar" id="envio" action="#{respuestaBean.agregaRespuesta()}" ajax="true"/>
-                    </p:panelGrid>		
-                 </h:form>
-                 
-                 <h:form>
-                    <p:outputPanel>           
-                    <p:dataScroller id="lista-respuestas" value="#{respuestaBean.respuestas}" var="resp" chunkSize="10">
-                        <p:growl id="messages2" showDetail="true"/>
-                        <f:facet name="header">
-                            Comentarios
-                        </f:facet>
-                        <h:panelGrid columns="2" style="width:100%" columnClasses="identidad, comentario"> 
-                            <p:outputPanel>
-                                <h:panelGrid columns="2" cellpadding="5"> 
+                                           <h:outputText value="Por: #{resp.usuario.nombre}" style="font-weight: bold"/>
+                                           <p:graphicImage value="#{imagenBean.imagen}" title="#{preguntaBean.pregunta.usuario.nombre}" height="100" width="100" rendered="#{imagenBean.imagen != null}" cache="false">
+                                                <f:param name="imgid" value="#{resp.usuario.id}" />
+                                            </p:graphicImage>
 
-                                    <h:outputText value="Usuario" style="font-weight: bold"/>
-                                    <f:facet name="header">
-                                       <p:graphicImage url="/Media/usuario.png" width="50" height="50" />
-                                    </f:facet> 
+                                           <h:outputText value="#{resp.contenido}"/>
+                                           <p:commandButton value="Borrar" id="borrado" action="#{respuestaBean.eliminaRespuesta(resp)}" update="@form" ajax="true"
+                                                            rendered="#{sessionScope.admin or sessionScope.userid == resp.usuario.id}"/>
+                                       </h:panelGrid>
+                                   </p:outputPanel>
+                               </h:panelGrid>  
+                               <hr/>
+                           </p:dataScroller> 
+                            <p:spacer></p:spacer> 
+                               <p:messages id="messages" showDetail="true" closable="true"/>
 
-                                    <h:outputText value="#{resp.contenido}"/>
-                                    <p:commandButton value="Borrar" id="borrado" action="#{respuestaBean.eliminaRespuesta(resp)}" update="lista-respuestas" ajax="true"/>
-                                </h:panelGrid>
-                            </p:outputPanel>
-                        </h:panelGrid>  
-                        <hr/>
-                    </p:dataScroller> 
-                    </p:outputPanel> 
-                </h:form>
+                               <p:outputLabel value="Deja tu comentario a esta pregunta" style="font-weight: bold; font-size: 18px;" />   	
+                                <div  align="center">
+                                    <p:spacer></p:spacer>
+                                    <p:commandButton value="Inicia Sesion!!!" 
+                                                     action="#{loginBean.redirige('/login.xhtml')}"
+                                                     style="width: 600px; height:100px; font-size:  20px"
+                                                     rendered="#{sessionScope.userid == null}"/>
+                                </div>	
+                               <p:panelGrid columns="2" rendered="#{sessionScope.userid != null}">   
+                                   <p:inputTextarea rows="7" cols="45" value="#{respuestaBean.contenido}"/>
+                                   <p:commandButton value="Enviar" id="envio" action="#{respuestaBean.agregaRespuesta()}" update="@form" ajax="true"/>
+                               </p:panelGrid>		
+                       </p:outputPanel> 
+                   </h:form>
                 </p:panelGrid>                
              </p:panel>
-             
-             <p:spacer></p:spacer>
-             <p:spacer></p:spacer> 
          </div>    
                 
         

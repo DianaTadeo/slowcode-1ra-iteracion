@@ -33,12 +33,18 @@ public class FiltroAutenticacion implements Filter {
         HttpServletResponse res = (HttpServletResponse) sr1;
         HttpSession ses = req.getSession(false);
         String direccion = req.getRequestURI();
-        if (direccion.contains("/login") || direccion.contains("/publico") ||
-            (direccion.contains("/restringido") && ses != null && 
-             ses.getAttribute("username") != null))
-            fc.doFilter(sr, sr1);
-        else
+        if (direccion.contains("administrador")) {
+            if (ses != null && (boolean)ses.getAttribute("admin"))
+                fc.doFilter(sr, sr1);
+            else
+                res.sendRedirect(req.getContextPath() + "/login.xhtml");
+        }
+        else if (direccion.contains("restringido") && !direccion.contains("principal") &&
+                 !direccion.contains("/Pregunta") &&
+                 ses != null && ses.getAttribute("username") == null)
             res.sendRedirect(req.getContextPath() + "/login.xhtml");
+        else
+            fc.doFilter(sr, sr1);
     }
 
     @Override

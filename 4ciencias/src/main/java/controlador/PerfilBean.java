@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import org.primefaces.model.ByteArrayContent;
+import org.primefaces.model.StreamedContent;
 
 /**
  *
@@ -29,7 +31,7 @@ public class PerfilBean implements Serializable {
 
     public String fetchPasswordLength() {
         String nombre = UtilidadHTTP.obtenUsuario();
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         int len = manager.getUserPwdLength(nombre);
         String res = "";
         while (len > 0) {
@@ -41,7 +43,18 @@ public class PerfilBean implements Serializable {
 
     public String fetchEmail() {
         String nombre = UtilidadHTTP.obtenUsuario();
-        ManagerU manager = new ManagerU();
+        ManagerUsuario manager = new ManagerUsuario();
         return manager.getUserEmail(nombre);
     }
+    
+    public StreamedContent fetchPhoto() {
+        ManagerUsuario manager = new ManagerUsuario();
+        byte[] foto = manager.getUserPhoto(UtilidadHTTP.obtenerIdUsuario());
+        if (foto != null)
+            return new ByteArrayContent(foto);
+        else
+            return null;
+    }
+    
+    
 }
