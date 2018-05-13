@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>4Ciencias</title>
+            </f:facet>
+        </h:head>
+
+        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
+                       background-size: cover;">
+            <p:toolbar id="tb">
+                <f:facet name="left">
+                    <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
+                    <span class="ui-separator">
+                        <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                    </span>
+                    <p:button href="http://www.fciencias.unam.mx/" value="FCIENCIAS" icon="ui-icon-home"></p:button>
+                    <p:button href="http://www.unam.mx/" value="UNAM" icon="ui-icon-folder-open"></p:button>
+                </f:facet>
+                <f:facet name="right" >
+                    <h:form>
+                        <p:button value="Buscar... " outcome="/busqueda" ></p:button>
+                        <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
+                        <p:splitButton value="#{sessionScope.username}" 
+                                       action="/restringido/perfil" 
+                                       icon="ui-icon-person" 
+                                       rendered="#{sessionScope.username != null}">
+                            <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
+                            <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
+                            <p:separator />
+                            <p:menuitem value="Cerrar Sesión" action="#{loginBean.resultadoLogout()}" icon="ui-icon-extlink" />
+                        </p:splitButton>
+                        <p:commandButton value="Cerrar Sesion" icon="ui-icon-extlink" action="#{loginBean.resultadoLogout()}" rendered="#{sessionScope.userid != null}"/>
+                    </h:form>
+                </f:facet>
+            </p:toolbar>
+            <p:sticky target="tb" />
+
+             <h:form id="loginForm" rendered="#{sessionScope.username == null}">          
+                 <p:growl id="msg" life="3000" autoUpdate="false" 
+                          globalOnly="true"/>
+                <p:panel style="width: 350px; height: 300px; 
+                                top: 50%;  left: 50%; 
+                                margin: -150px 0 0 -175px;
+                                border: 2px solid dodgerblue; padding: 10px; 
+                                opacity: 0.9; text-align: left; position: absolute;
+                                align-items: center" 
+                         header="Login">
+
+                    <h:panelGrid id="loginPanel" columns="2">
+
+                        <h:outputText value="Email: " />
+
+                        <p:inputText id="email" 
+                                     value="#{loginBean.email}" 
+                                     required="true"
+                                     requiredMessage="No introduciste tu correo!!!"
+                                     >
+                        </p:inputText>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="email" ></p:message>
+
+                        <h:outputText value="Password: " />
+
+                        <p:password id="password" 
+                                    value="#{loginBean.password}"  
+                                    feedback="false"
+                                    required="true" 
+                                    requiredMessage="No introduciste el password!!!"
+                                    >
+                        </p:password>
+
+                        <p:spacer></p:spacer>
+
+                        <p:message for="password"></p:message>
+
+                        <p:spacer></p:spacer>
+
+                        <p:commandButton action="#{loginBean.resultadoLogin()}" 
+                                         value="Login" 
+                                         update="loginForm" 
+                                         ajax="true">
+                        </p:commandButton>
+                        
+                        <p:spacer></p:spacer>
+
+                        <p:button outcome="registro" value="Registro"  style="align-self: center"></p:button>
+
+                    </h:panelGrid>
+
+                </p:panel>
+
+            </h:form>
+            
+        </h:body>
+
+    </f:view>
+</html>
+
