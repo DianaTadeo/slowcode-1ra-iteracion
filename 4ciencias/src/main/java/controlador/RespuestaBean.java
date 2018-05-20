@@ -37,8 +37,8 @@ public class RespuestaBean implements Serializable {
     private Date fecha;
 
     
-    @ManagedProperty("#{managerR}")
-    private ManagerRespuesta myConect;
+    //@ManagedProperty("#{managerR}")
+    private ManagerRespuesta myConect = new ManagerRespuesta();
  
     public void eliminaRespuesta(Respuesta respuesta) {
         int id=respuesta.getId();

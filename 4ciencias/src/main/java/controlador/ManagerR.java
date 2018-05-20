@@ -20,8 +20,8 @@ import org.hibernate.Transaction;
  *
  * @author diana
  */
-@ManagedBean(name ="managerR")
-@ApplicationScoped
+//@ManagedBean(name ="managerR")
+//@ApplicationScoped
 public class ManagerR {
     
     /**Se encarga de agregar una respuesta a la base de datos

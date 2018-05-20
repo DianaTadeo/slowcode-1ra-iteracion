@@ -13,9 +13,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author palmerin
  */
 @ManagedBean(name = "preguntaBean")
-@Dependent
+@SessionScoped
 public class PreguntaBean {
     
     /* Columnas de tabla de Pregunta en BD. */
@@ -40,6 +40,7 @@ public class PreguntaBean {
     private String nombreCategoria; /* Guarda el nombre de la categoria seleccionada. */
     private List preguntas;      
     private Pregunta pregunta;
+    private String mensajeError;
    
     /**
      * Creates a new instance of PreguntaBean
@@ -124,14 +125,26 @@ public class PreguntaBean {
         return preguntas;
     }
     
+    public void setMensajeError(String mensajeError){
+        this.mensajeError = mensajeError;
+    }
+    
+    public String getMensajeError(){
+        return mensajeError;
+    }
+    
      /** Método que verifica los campos de una pregunta.
     * @return true si es válida, false si no lo es.
     */
-    public boolean verificarPregunta() {
-        if (this.categoria == null)
-            return false;        
+    public boolean verificarPregunta() {  
+        if (categoria == null)
+            return false;
         if (this.titulo == null || this.titulo.isEmpty())
+        {         
+            mensajeError = "Es necesario poner un título.\n"
+                            + "No se ha insertado la pregunta.";
             return false;                          
+        }            
         return true;
     }
     
@@ -150,25 +163,34 @@ public class PreguntaBean {
         
         boolean eliminado = manager.eliminarPregunta(id);
         if (eliminado) {
-            muestraMensaje(FacesMessage.SEVERITY_INFO, "Se ha eliminado la pregunta.",
-                           "");
+            FacesContext.getCurrentInstance().getExternalContext()
+                .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
+                         "/restringido/principal.xhtml");
         }
-        else muestraMensaje(FacesMessage.SEVERITY_FATAL, "No se ha eliminado la pregunta.",
-                           "Intenta mas tarde...");
+        else {
+            mensajeError = "No se ha eliminado tu pregunta.\n"
+                                + "Inténtalo más tarde.";
+            FacesContext.getCurrentInstance().getExternalContext()
+                .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
+                         "/restringido/principal.xhtml");
+        }
     }
     
-    public void insertarPregunta() throws IOException {        
+    public void insertarPregunta() throws IOException {         
         ManagerPregunta manager = new ManagerPregunta();
         if (verificarPregunta()) {           
             Date fechaPregunta = new Date();            
             Usuario sessionUser = manager.getUsuario(UtilidadHTTP.obtenerIdUsuario());
-            Serializable serial = manager.addPregunta(categoria, sessionUser, titulo, contenido, fechaPregunta);              
+            Serializable serial = manager.addPregunta(categoria, sessionUser, titulo, contenido, fechaPregunta);                          
             FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/Pregunta.xhtml?id_pregunta=" + serial);            
         }
-        else muestraMensaje(FacesMessage.SEVERITY_FATAL, "No se ha publicado la pregunta.",
-                           "Verifica los campos.");  
+        else {                 
+            FacesContext.getCurrentInstance().getExternalContext()
+                .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
+                         "/restringido/mensajes/err/ErrorPreguntaIH.xhtml");  
+        }
     }
     
     public String obtenerParametroUrl(String parametro) {

@@ -46,36 +46,47 @@ and open the template in the editor.
             <p:spacer></p:spacer>
             
         <div name="pregunta" id="centered-container" class="ui-fluid">                        
+            <p:panel style="opacity: .9">
             <h:form> 
                 <p:dataScroller value="#{preguntaBean.preguntas}" id="centered-container" var="pregunta" 
-                                chunkSize="10">               
+                                chunkSize="10">                   
                     <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                             styleClass="ui-panelgrid-blank">                                                
+                                 styleClass="ui-panelgrid-blank">                                                                
+                        <p:panelGrid columns="1" >                    
+                            <p:graphicImage value="#{imagenBean.imagen}" alt="No Hay Foto" height="100" width="100" rendered="#{imagenBean.imagen != null}" cache="false">
+                                <f:param name="imgid" value="#{sessionScope.userid}" />
+                            </p:graphicImage>                   
 
-                        <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                 styleClass="ui-panelgrid-blank">                    
-                            <f:facet name="header">
-                                <p:graphicImage url="/media/usuario.png" width="100" height="100" />
-                            </f:facet>                   
                             <p:outputLabel id="usuario" style="font-size: 14px; font-weight: bold" 
-                                           value="#{pregunta.usuario.nombre}"/>                                                                                                                  
-                        </p:panelGrid>
-
-                        <p:panelGrid columns="1" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                 styleClass="ui-panelgrid-blank">            
-                            <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                         styleClass="ui-panelgrid-blank">
-                                <p:outputLabel id="categoria" value="#{pregunta.categoria.nombre}" style="font-size: 16px; font-style: italic" />                
+                                           value="#{pregunta.usuario.nombre}"/>                                                                                                                                                                         
+                        
+                            <p:commandButton id="mas" value="Ver" 
+                                         action="#{preguntaBean.mostrarPregunta(pregunta.id)}" icon="fa-chevron-circle-right" />
+                        </p:panelGrid>               
+               
+                        <p:panelGrid columns="1" style="float:right">
+                            <p:panelGrid columns="3">
+                                <p:outputLabel id="categoria" value="#{pregunta.categoria.nombre}" 
+                                               style="font-size: 16px; font-style: italic" />                
                                 <p:outputLabel id="fecha" style="font-size: 10px; font-style: italic" 
-                                               value="19/05/2018"/>                                                   
-                            </p:panelGrid>                    
-                            <p:outputLabel id="titulo" value="#{pregunta.titulo}" style="font-weight: bold; font-size: 32px;" />                                                                        
-                            <p:commandButton id="mas" value="Ver mas" 
-                                     action="#{preguntaBean.mostrarPregunta(pregunta.id)}" icon="ui-icon-check" />
-                        </p:panelGrid>                                 
-                    </p:panelGrid>                    
+                                               value="#{pregunta.fecha.toString()}"/>                                                                                                                                    
+                            </p:panelGrid> 
+
+                            <p:outputPanel style="padding-left: 15px"> 
+                                <p:outputLabel id="titulo" value="#{pregunta.titulo}" style="font-weight: bold; font-size: 32px;" />                                            
+                            </p:outputPanel>
+
+                            <p:outputPanel style="padding-left: 25px">
+                                <p:outputLabel id="contenido" value="#{pregunta.contenido}" style="font-size: 20px" />                        
+                            </p:outputPanel>
+
+                        </p:panelGrid>  
+                                       
+                </p:panelGrid>   
+                    <hr/>
                 </p:dataScroller>
             </h:form>
+            </p:panel>
             <br/>
         </div>
     </h:body>

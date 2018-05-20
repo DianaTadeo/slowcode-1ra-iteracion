@@ -49,16 +49,25 @@
                 <h:form>  
                     <p:growl id="msg" life="3000" autoUpdate="false" 
                           globalOnly="true"/>
+                    
                     <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
                                  styleClass="ui-panelgrid-blank">                                                                      
+                                               
+                        <p:graphicImage value="#{imagenBean.imagen}" alt="No Hay Foto" height="100" width="100" rendered="#{imagenBean.imagen != null}" cache="false">
+                            <f:param name="imgid" value="#{sessionScope.userid}" />
+                        </p:graphicImage>
                         
-                        <p:graphicImage url="/media/usuario.png" width="100" height="100" />
-                        <p:panelGrid  columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
-                                 styleClass="ui-panelgrid-blank"> 
+                         <p:panelGrid  columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
+                                 styleClass="ui-panelgrid-blank" style="float:right"> 
                             <p:commandButton style="float: left" value="Publicar" action="#{preguntaBean.insertarPregunta}" icon="ui-icon-check" />
                             <p:commandButton style="float: right" value="Cancelar" action="#{preguntaBean.mostrarInicio}" icon="ui-icon-closethick" />                            
                         </p:panelGrid>
-                        
+                       
+                    </p:panelGrid>
+                       
+                    
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10" 
+                                 styleClass="ui-panelgrid-blank">   
                         
                         <p:outputLabel id="titulo" value="Título" style="font-size: 20px; float: right"/>                
                         <p:inputTextarea rows="2" cols="40" autoResize="false" value="#{preguntaBean.titulo}" />
@@ -76,11 +85,13 @@
                         <p:outputLabel value=""/>                                                                                                  
                         
                     </p:panelGrid>
+                    
                     <br/>
                     <hr/>
                 </h:form>  
             </p:panel>
             </div>
+        
         </h:body>        
            
 </html>
