@@ -69,7 +69,7 @@ and open the template in the editor.
                                  styleClass="ui-panelgrid-blank">                                                                
                 <p:panelGrid columns="1" >                    
                     <p:graphicImage value="#{imagenBean.imagen}" alt="No Hay Foto" height="100" width="100" rendered="#{imagenBean.imagen != null}" cache="false">
-                        <f:param name="imgid" value="#{sessionScope.userid}" />
+                        <f:param name="imgid" value="#{preguntaBean.pregunta.usuario.id}" />
                     </p:graphicImage>                   
                     
                     <p:outputLabel id="usuario" style="font-size: 14px; font-weight: bold" 

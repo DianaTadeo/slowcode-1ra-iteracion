@@ -119,8 +119,7 @@ public class PreguntaBean {
         this.preguntas = preguntas;
     }
     
-    public List<Pregunta> getPreguntas() throws IOException {                          
-       
+    public List<Pregunta> getPreguntas() throws IOException {                                 
         cargaPreguntas();               
         return preguntas;
     }
@@ -154,7 +153,7 @@ public class PreguntaBean {
         this.pregunta = manager.getPreguntas(id).get(0);
         FacesContext.getCurrentInstance().getExternalContext()
                 .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/Pregunta.xhtml?id_pregunta=" + id);       
+                         "/restringido/Pregunta.xhtml?id_pregunta=" + id);      
     }
     
     public void eliminarPregunta() throws IOException {  
@@ -191,6 +190,16 @@ public class PreguntaBean {
                 .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/mensajes/err/ErrorPreguntaIH.xhtml");  
         }
+        limpiarAtributos();
+    }
+    
+    private void limpiarAtributos() {
+        categoria = null;
+        usuario   = null;
+        fecha     = null;
+        titulo    = "";
+        contenido = "";
+        id        = 0;
     }
     
     public String obtenerParametroUrl(String parametro) {
@@ -220,21 +229,20 @@ public class PreguntaBean {
         }       
         return pregunta;
     }
-     
-    /**Nuevo: */
-     public void mostrarAgregarPregunta() throws IOException {
+         
+    public void mostrarAgregarPregunta() throws IOException {
          FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/AgregaPregunta.xhtml"); 
      }
      
-     public void mostrarInicio() throws IOException {
+    public void mostrarInicio() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/principal.xhtml"); 
      }
          
-     public void muestraMensaje(FacesMessage.Severity severidad, String mensaje, 
+    public void muestraMensaje(FacesMessage.Severity severidad, String mensaje, 
                                String detalles) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severidad, mensaje, detalles));

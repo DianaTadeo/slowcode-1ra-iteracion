@@ -82,7 +82,8 @@
                                         <h:outputText value="Por:" />
                                         <h:outputText value="#{res.usuario.nombre}" style="font-weight: bold"/>
                                         <p:commandButton id="mas" value="Ver mas" 
-                                                 action="#{preguntaBean.mostrarPregunta(res.id)}" icon="ui-icon-check" />
+                                                         action="#{preguntaBean.mostrarPregunta(res.id)}" ajax="false" 
+                                                         icon="ui-icon-check" />
                                     </h:panelGrid>
                                 </p:outputPanel>
                             </h:panelGrid>

@@ -39,8 +39,7 @@ public class BusquedaBean {
     
     public void cargaResultados() {
         ManagerPregunta mp = new ManagerPregunta();
-        resultados = mp.getPreguntas(contenido);
-        contenido = "";
+        resultados = mp.getPreguntas(contenido);        
     }
     
 }

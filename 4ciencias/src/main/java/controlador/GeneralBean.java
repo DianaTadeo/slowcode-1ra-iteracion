@@ -23,7 +23,7 @@ public class GeneralBean implements Serializable {
     private List<Pregunta> top; 
     
     public List<Pregunta> dameTop() {
-        return new ManagerP().todas();
+        return new ManagerPregunta().getPreguntas();
     }
     
     public List<Pregunta> getTop() {

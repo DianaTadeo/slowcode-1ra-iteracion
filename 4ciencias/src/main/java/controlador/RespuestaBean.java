@@ -35,9 +35,7 @@ public class RespuestaBean implements Serializable {
     private Usuario usuario;
     private String contenido;
     private Date fecha;
-
-    
-    //@ManagedProperty("#{managerR}")
+        
     private ManagerRespuesta myConect = new ManagerRespuesta();
  
     public void eliminaRespuesta(Respuesta respuesta) {
