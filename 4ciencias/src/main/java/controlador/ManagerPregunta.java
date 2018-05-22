@@ -26,6 +26,11 @@ import org.hibernate.criterion.Restrictions;
  */
 public class ManagerPregunta {
        
+    /**
+     * Método para obtener las preguntas que están en la base de datos.
+     * Obtiene todas las preguntas que están hasta ese momento.
+     * @return lista de preguntas.
+     */
     public List getPreguntas() {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
@@ -45,6 +50,14 @@ public class ManagerPregunta {
         return resultado;
     }
     
+    /**
+     * Obtiene todas las preguntas que tengan el id dado.
+     * Dado que el id es único para cada pregunta podemos asegurar
+     * que la lista devuelta tendrá un elemento (o será vacia si no hay 
+     * una pregunta con tal id).
+     * @param id
+     * @return lista de preguntas con el id dado.
+     */
     public List<Pregunta> getPreguntas(Serializable id) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null; 
@@ -64,6 +77,11 @@ public class ManagerPregunta {
         return resultado;
     }
     
+    /**
+     * Obtiene las preguntas que tienen como contenido la cadena dada.   
+     * @param contenido
+     * @return lista de preguntas con tal contenido.
+     */
     public List<Pregunta> getPreguntas(String contenido) {
         String cl = contenido.toLowerCase();
         Session sesion = HibernateUtil.getSessionFactory().openSession();
@@ -91,6 +109,17 @@ public class ManagerPregunta {
         return resultado;
     }
     
+    /**
+     * Método para agregar una pregunta a la base de datos.
+     * Se encarga de conectarse a la base de datos y de crear una instancia 
+     * Pregunta con los parámetros recibidos (sin id pues lo asigna la BD).     
+     * @param categoria
+     * @param usuario
+     * @param titulo
+     * @param contenido
+     * @param fecha
+     * @return id asignado de la pregunta que se insertó.
+     */
     public Serializable addPregunta(Categoria categoria, Usuario usuario, String titulo,
                                 String contenido, Date fecha) {        
         Session sesion = HibernateUtil.getSessionFactory().openSession();
@@ -112,6 +141,15 @@ public class ManagerPregunta {
         return serial;
     }        
     
+    /**
+     * Método que realiza el query para eliminar una pregunta con un id dado.
+     * Si encuentra uan pregunta con tal id, entonces eliminará tal pregunta y
+     * devolverá True.
+     * En caso de no encontrar ninguna pregunta no hará nada y devolverá True.
+     * @param id
+     * @return booleano indicando si se eliminó la pregunta.
+     *          Si devuvelve False será porque ocurrió un problema en la BD.
+     */
     public boolean eliminarPregunta(int id) {
         
         Session sesion = HibernateUtil.getSessionFactory().openSession();
@@ -134,16 +172,12 @@ public class ManagerPregunta {
         }
         return exito;
     }
-    
-    public int getPreguntaId(Serializable serial) {
-        Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Pregunta pregunta = new Pregunta();
-        Object o = sesion.get(pregunta.getClass(), serial);
-        pregunta = (Pregunta) o;
-        
-        return pregunta.getId();
-    }
-    
+       
+    /**
+     * Obtiene la instancia Usuario dado un id de Usuario.     
+     * @param userId
+     * @return Usuario correspondiente al id.
+     */
     public Usuario getUsuario(int userId) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();        
         Object o = sesion.get(Usuario.class, userId);

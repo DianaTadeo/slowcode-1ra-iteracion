@@ -10,46 +10,91 @@ import java.util.Set;
  */
 public class Categoria  implements java.io.Serializable {
 
-
+    /* Atributos de una Categoría. */
      private int id;
      private String nombre;
      private Set preguntas = new HashSet(0);
 
+    /** Constructor vacío. */
     public Categoria() {
     }
 
-	
+    /**
+     * Constructor de una categoría.
+     * @param id
+     * @param nombre 
+     */
     public Categoria(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
     }
+    
+    /**
+     * Constructor de una Categoría.
+     * @param id
+     * @param nombre
+     * @param preguntas 
+     */
     public Categoria(int id, String nombre, Set preguntas) {
        this.id = id;
        this.nombre = nombre;
        this.preguntas = preguntas;
     }
+    
+    /**
+     * Constructor de una categoría.
+     * Es el que mas se usa durante inserción a la BD, pues no tiene el 
+     * parámetro de id pues es asignado directamente en la base de datos.
+     * @param nombre 
+     */
     public Categoria(String nombre) {        
         this.nombre = nombre;
     }
-   
+    
+    /**
+     * Obtiene el id de la categoría.
+     * @return 
+     */
     public int getId() {
         return this.id;
     }
     
+    /**
+     * Asigna el id de la categoría.
+     * @param id 
+     */
     public void setId(int id) {
         this.id = id;
     }
+    
+    /**
+     * Obtiene el nombre de la categoría.
+     * @return 
+     */
     public String getNombre() {
         return this.nombre;
     }
     
+    /**
+     * Asigna el nombre de la categoría.
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+    
+    /**
+     * Obtiene las preguntas que tienen tal categoría.
+     * @return 
+     */
     public Set getPreguntas() {
         return this.preguntas;
     }
     
+    /**
+     * Asigna las preguntas con tal categoría.
+     * @param preguntas 
+     */
     public void setPreguntas(Set preguntas) {
         this.preguntas = preguntas;
     }

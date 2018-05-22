@@ -11,25 +11,47 @@ import java.util.Set;
  */
 public class Pregunta  implements java.io.Serializable {
 
-
+     /* Atributos del modelo de Pregunta. */
      private int id;
      private Categoria categoria;
      private Usuario usuario;
      private String titulo;
      private String contenido;
      private Date fecha;
+     
+     /* Respuestas de la pregunta. */
      private Set respuestas = new HashSet(0);
-
+     
+    /**
+     * Constructor por default.
+     */
     public Pregunta() {
     }
 
-	
+    /**
+     * Constructor crear una pregunta.    
+     * @param id
+     * @param usuario
+     * @param titulo
+     * @param fecha 
+     */
     public Pregunta(int id, Usuario usuario, String titulo, Date fecha) {
         this.id = id;
         this.usuario = usuario;
         this.titulo = titulo;
         this.fecha = fecha;
     }
+    
+    /**
+     * Constructor para crear una pregunta.
+     * @param id
+     * @param categoria
+     * @param usuario
+     * @param titulo
+     * @param contenido
+     * @param fecha
+     * @param respuestas 
+     */
     public Pregunta(int id, Categoria categoria, Usuario usuario, String titulo, String contenido, Date fecha, Set respuestas) {
        this.id = id;
        this.categoria = categoria;
@@ -39,6 +61,17 @@ public class Pregunta  implements java.io.Serializable {
        this.fecha = fecha;
        this.respuestas = respuestas;
     }
+    
+    /**
+     * Constructor principal para crear una pregunta.
+     * No recibe un id pues la base de datos se encarga de la asignación
+     * de este atributo.
+     * @param categoria
+     * @param usuario
+     * @param titulo
+     * @param contenido
+     * @param fecha 
+     */
     public Pregunta(Categoria categoria, Usuario usuario, String titulo, String contenido, Date fecha) {       
        this.categoria = categoria;
        this.usuario = usuario;
@@ -47,59 +80,117 @@ public class Pregunta  implements java.io.Serializable {
        this.fecha = fecha;       
     }
    
+    /**
+     * Obtiene el id de la pregunta.
+     * @return id 
+     */
     public int getId() {
         return this.id;
     }
     
+    /**
+     * Asigna el id a la pregunta.
+     * @param id 
+     */
     public void setId(int id) {
         this.id = id;
     }
+    
+    /**
+     * Obtiene la Categoría que tiene la pregunta.
+     * @return 
+     */
     public Categoria getCategoria() {
         return this.categoria;
     }
     
+    /**
+     * Asigna la categoría a la pregunta.
+     * @param categoria 
+     */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+    
+    /**
+     * Obtiene el usuario correspondiente a tal pregunta.
+     * @return Usuario
+     */
     public Usuario getUsuario() {
         return this.usuario;
     }
     
+    /**
+     * Asigna un Usuario a la pregunta.
+     * @param usuario 
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    /**
+     * Obtiene el título de la pregunta.
+     * @return título
+     */
     public String getTitulo() {
         return this.titulo;
     }
     
+    /**
+     * Asigna título a la pregunta.
+     * @param titulo 
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+    
+    /**
+     * Obtiene el contenido de la pregunta.
+     * @return 
+     */
     public String getContenido() {
         return this.contenido;
     }
     
+    /**
+     * Asigna el contenido a la pregunta.
+     * @param contenido 
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+    
+    /**
+     * Obtiene la fecha en que se publicó la pregunta.
+     * @return 
+     */
     public Date getFecha() {
         return this.fecha;
     }
     
+    /**
+     * Asigna la fecha a la pregunta.
+     * @param fecha 
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
+    
+    /**
+     * Obtiene las respuestas que tiene la pregunta.
+     * @return 
+     */
     public Set getRespuestas() {
         return this.respuestas;
     }
     
+    /**
+     * Asigna las respuestas de tal pregunta.
+     * @param respuestas 
+     */
     public void setRespuestas(Set respuestas) {
         this.respuestas = respuestas;
     }
-
-
-
-
 }
 
 

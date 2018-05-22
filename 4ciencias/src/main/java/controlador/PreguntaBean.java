@@ -11,12 +11,9 @@ import modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,9 +34,17 @@ public class PreguntaBean {
     private int id;
     
     /* Variables para manejar eventos en la interfaz gráfica. */
-    private String nombreCategoria; /* Guarda el nombre de la categoria seleccionada. */
+    
+    /* Guarda el nombre de la categoria seleccionada. */
+    private String nombreCategoria; 
+    
+    /*Almacena las preguntas que se han publicado. */
     private List preguntas;      
+    
+    /*Instancia de una pregunta.*/
     private Pregunta pregunta;
+    
+    /* Mensaje de error cuando ocurre un problema en el CRUD.*/
     private String mensajeError;
    
     /**
@@ -48,93 +53,176 @@ public class PreguntaBean {
     public PreguntaBean() {
     }                              
     
-    /* Getters y Setters. */    
+    /**
+     * Obtiene la categoría de la pregunta.
+     * @return Categoria
+     */   
     public Categoria getCategoria() {
         return this.categoria;
     }
     
+    /**
+     * Asigna la categoría a la pregunta.
+     * @param categoria 
+     */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    /**
+     * Obtiene el id de la pregunta.
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Asigna el id a la pregunta.
+     * @param id 
+     */
     public void setId(int id) {
         this.id = id;
     }
     
+    /**
+     * Obtiene el Usuario de la pregunta.
+     * @return Usuario
+     */
     public Usuario getUsuario() {
         return this.usuario;
     }
     
+    /**
+     * Asigna el Usuario a la pregunta.
+     * @param usuario 
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+    
+    /**
+     * Obtiene el título de la pregunta.
+     * @return titulo
+     */
     public String getTitulo() {
         return this.titulo;
     }
     
+    /**
+     * Asigna el título de la pregunta.
+     * @param titulo 
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
     
+    /**
+     * Obtiene el contenido de la pregunta.
+     * @return contenido
+     */
     public String getContenido() {
         return this.contenido;
     }
     
+    /**
+     * Asigna el contenido de la pregunta.
+     * @param contenido 
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-        
+    
+    /**
+     * Obtiene la fecha de la pregunta.
+     * @return fecha
+     */
     public Date getFecha() {
         return this.fecha;
     }
     
+    /**
+     * Asigna la fecha de la pregunta.
+     * @param fecha 
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }  
     
+    /**
+     * Asigna una Pregunta a la variable pregunta.
+     * @param pregunta 
+     */
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
     }
     
+    /**
+     * Asigna el nombre de la categoria en la variable nombreCategoira
+     * @param nombre 
+     */
     public void setNombreCategoria(String nombre) {       
         nombreCategoria = nombre;
         asignarCategoria(nombreCategoria);
         
     }
     
+    /**
+     * Obtiene el nombre de la categoría.
+     * @return nombre de la categoría.
+     */
     public String getNombreCategoria() {        
         return nombreCategoria;
     }
     
+    /**
+     * Asigna la categoría dado el nombre de tal categoría.
+     * @param nombre 
+     */
     private void asignarCategoria(String nombre) {
         ManagerCategoria manager = new ManagerCategoria();
         this.categoria = manager.getCategoria(nombre);        
     }
     
+    /**
+     * Asigna las preguntas.
+     * @param preguntas 
+     */
     public void setPreguntas(List preguntas) {        
         this.preguntas = preguntas;
     }
     
+    /**
+     * Obtiene la lista de las preguntas.
+     * @return lista de preguntas.
+     * @throws IOException 
+     */
     public List<Pregunta> getPreguntas() throws IOException {                                 
         cargaPreguntas();               
         return preguntas;
     }
     
+    /**
+     * Asigna un mensaje de error.
+     * @param mensajeError 
+     */
     public void setMensajeError(String mensajeError){
         this.mensajeError = mensajeError;
     }
     
+    /**
+     * Obtiene el mensaje de error.
+     * @return mensaje de error.
+     */
     public String getMensajeError(){
         return mensajeError;
     }
     
-     /** Método que verifica los campos de una pregunta.
-    * @return true si es válida, false si no lo es.
-    */
+    /** Método que verifica los campos de una pregunta.
+     * Es válida cuando siempre tiene título y categoría.
+     * En otro caso es inválida.
+     * @return true si es válida, false si no lo es.
+     */
     public boolean verificarPregunta() {  
         if (categoria == null)
             return false;
@@ -147,6 +235,12 @@ public class PreguntaBean {
         return true;
     }
     
+    /**
+     * Método que muestra la pregunta correspondiente a un id dado.
+     * Se encarga de redirigir a la página de la pregunta correspondiente.
+     * @param id
+     * @throws IOException 
+     */
     public void mostrarPregunta(int id) throws IOException {
         this.id = id;
         ManagerPregunta manager = new ManagerPregunta();
@@ -156,6 +250,13 @@ public class PreguntaBean {
                          "/restringido/Pregunta.xhtml?id_pregunta=" + id);      
     }
     
+    /**
+     * Método que hace la petición de eliminar la pregunta que tiene
+     * el id en el url de la página actual.
+     * Si la elimina correctamente redirige a la página principal. 
+     * En otro caso, manda a una página de error ecplicando lo que sucedió.
+     * @throws IOException 
+     */
     public void eliminarPregunta() throws IOException {  
         String param = obtenerParametroUrl("id_pregunta");        
         ManagerPregunta manager = new ManagerPregunta();
@@ -175,6 +276,12 @@ public class PreguntaBean {
         }
     }
     
+    /**
+     * Método que hace la petición a ManagerPregunta para insertar una pregunta.
+     * Si se cumplen los campos solicitados, entonces se insertará en la BDD.
+     * En otro caso, mandará a una página de error.
+     * @throws IOException 
+     */
     public void insertarPregunta() throws IOException {         
         ManagerPregunta manager = new ManagerPregunta();
         if (verificarPregunta()) {           
@@ -193,6 +300,10 @@ public class PreguntaBean {
         limpiarAtributos();
     }
     
+    /**
+     * Limpia los atributos de la clase, esto con el fin 
+     * de mantener la sesión limpia.
+     */
     private void limpiarAtributos() {
         categoria = null;
         usuario   = null;
@@ -202,6 +313,11 @@ public class PreguntaBean {
         id        = 0;
     }
     
+    /**
+     * Obtiene el parámetro con el nombre que se recibe de la url actual.
+     * @param parametro
+     * @return valor del parametro
+     */
     public String obtenerParametroUrl(String parametro) {
         HttpServletRequest req = (HttpServletRequest)FacesContext
                                                 .getCurrentInstance()
@@ -210,7 +326,11 @@ public class PreguntaBean {
         return req.getParameter(parametro);
     }
          
-    
+    /**
+     * Obtiene todas las preguntas de la base de datos y las guarda en 
+     * una variable, de esta forma estarán disponibles cuando se pidan.
+     * @throws IOException 
+     */
     public void cargaPreguntas() throws IOException {
         ManagerPregunta manager = new ManagerPregunta();
         String parametro = obtenerParametroUrl("id_pregunta");         
@@ -220,6 +340,10 @@ public class PreguntaBean {
             preguntas = manager.getPreguntas(Integer.parseInt(parametro));
     }
     
+    /**
+     * Obtiene la pregunta 
+     * @return pregunta pedida
+     */
      public Pregunta getPregunta() {
         String parametro = obtenerParametroUrl("id_pregunta");                
         if (parametro != null && !parametro.isEmpty()) {
@@ -229,23 +353,24 @@ public class PreguntaBean {
         }       
         return pregunta;
     }
-         
+    
+     /**
+      * Método para redirigir al formulario para agregar una pregunta.
+      * @throws IOException 
+      */
     public void mostrarAgregarPregunta() throws IOException {
          FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/AgregaPregunta.xhtml"); 
      }
-     
+    
+    /**
+     * Método para redirigir a la página principal de la página.
+     * @throws IOException 
+     */
     public void mostrarInicio() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().
                 redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
                          "/restringido/principal.xhtml"); 
-     }
-         
-    public void muestraMensaje(FacesMessage.Severity severidad, String mensaje, 
-                               String detalles) {
-        FacesContext.getCurrentInstance().
-                addMessage(null, new FacesMessage(severidad, mensaje, detalles));
-    }
-    
+     }       
 }

@@ -6,7 +6,6 @@
 package controlador;
 
 import java.util.List;
-import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import javax.faces.bean.ManagedBean;
 
@@ -28,28 +27,52 @@ public class CategoriaBean {
     public CategoriaBean() {        
     }
     
+    /**
+     * Asigna una lista de categorías.
+     * @param categorias 
+     */
     public void setCategorias(List categorias) {
         this.categorias = categorias;
     }
     
+    /**
+     * Obtiene la lista de categorías almacenada.
+     * @return lista de categorías.
+     */
     public List getCategorias() {
         ManagerCategoria manager = new ManagerCategoria();
         categorias = manager.getCategorias();
         return categorias;
     }
-
+    
+    /**
+     * Asigna el id de la categoría.
+     * @param id 
+     */
     public void setId(int id) {
         this.id = id;
     }
-
+    
+    /**
+     * Asigna el nombre de la categoría.
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    
+    /**
+     * Obtiene el id de la categoría.
+     * @return 
+     */
     public int getId() {
         return id;
     }
-
+    
+    /**
+     * Obtiene el nombre de la categoría.
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
