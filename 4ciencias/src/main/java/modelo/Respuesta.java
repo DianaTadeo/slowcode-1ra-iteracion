@@ -1,7 +1,5 @@
 package modelo;
 // Generated May 8, 2018 9:46:55 PM by Hibernate Tools 4.3.1
-
-
 import java.util.Date;
 
 /**
@@ -16,9 +14,22 @@ public class Respuesta  implements java.io.Serializable {
      private String contenido;
      private Date fecha;
 
+    /**
+     * Constructor vacio de la clase Respuesta
+     */
     public Respuesta() {
     }
 
+    /**
+     * Constructor de respuesta a partir de todos
+     * sus atributos.
+     * @param id el id de la repsuesta
+     * @param pregunta la pregunta a la que pertenece
+     * la respuesta.
+     * @param usuario el usuario que responde
+     * @param contenido el contenido de la respuesta
+     * @param fecha la fecha de respuesta
+     */
     public Respuesta(int id, Pregunta pregunta, Usuario usuario, String contenido, Date fecha) {
        this.id = id;
        this.pregunta = pregunta;
@@ -27,45 +38,87 @@ public class Respuesta  implements java.io.Serializable {
        this.fecha = fecha;
     }
    
+    /**
+     * Regresa el ID de la respuesta
+     * @return id
+     */
     public int getId() {
         return this.id;
     }
     
+    /**
+     * Cambia el id de la respuesta
+     * @param id el nuevo id
+     */
     public void setId(int id) {
         this.id = id;
     }
+     
+    /**
+     * Regresa la pregunta que deseamos responder
+     * @return this.pregunta
+     */
     public Pregunta getPregunta() {
         return this.pregunta;
     }
     
+    /**
+     * Permite cambiar la pregunta que se
+     * desea responder
+     * @param pregunta es la nueva pregunta
+     */
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
     }
+     
+    /**
+     * Regresa el usuario que respondera
+     * @return this.usuario
+     */
     public Usuario getUsuario() {
         return this.usuario;
     }
     
+    /**
+     * Cambia el usuario que esta respondiendo
+     * la pregunta.
+     * @param usuario es el nuevo usuraio
+     */ 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+     
+    /**
+     * Regresa el contenido de la respuesta
+     * @return this.contenido
+     */
     public String getContenido() {
         return this.contenido;
     }
     
+    /**
+     * Cambia el contenido de la respuesta
+     * @param contenido es el nuevo contenido
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+     
+    /**
+     * Regresa la fecha en que se escribio la respuesta
+     * @return this.fecha
+     */
     public Date getFecha() {
         return this.fecha;
     }
     
+    /**
+     * Cambia la fecha en que escribio la respuesta
+     * @param fecha es la nueva fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-
-
-
-
 }
 
 
