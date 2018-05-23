@@ -22,31 +22,50 @@ import javax.servlet.http.HttpSession;
  */
 public class FiltroAutenticacion implements Filter {
 
+    /**
+     * Init.
+     *
+     * @param fc
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig fc) throws ServletException {
     }
 
+    /**
+     * Filtro.
+     *
+     * @param sr
+     * @param sr1
+     * @param fc
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
-    public void doFilter(ServletRequest sr, ServletResponse sr1, FilterChain fc) 
+    public void doFilter(ServletRequest sr, ServletResponse sr1, FilterChain fc)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) sr;
         HttpServletResponse res = (HttpServletResponse) sr1;
         HttpSession ses = req.getSession(false);
         String direccion = req.getRequestURI();
         if (direccion.contains("administrador")) {
-            if (ses != null && (boolean)ses.getAttribute("admin"))
+            if (ses != null && (boolean) ses.getAttribute("admin")) {
                 fc.doFilter(sr, sr1);
-            else
+            } else {
                 res.sendRedirect(req.getContextPath() + "/login.xhtml");
-        }
-        else if (direccion.contains("restringido") && !direccion.contains("principal") &&
-                 !direccion.contains("/Pregunta") &&
-                 ses != null && ses.getAttribute("username") == null)
+            }
+        } else if (direccion.contains("restringido") && !direccion.contains("principal")
+                && !direccion.contains("/Pregunta")
+                && ses != null && ses.getAttribute("username") == null) {
             res.sendRedirect(req.getContextPath() + "/login.xhtml");
-        else
+        } else {
             fc.doFilter(sr, sr1);
+        }
     }
 
+    /**
+     * Destroy.
+     */
     @Override
     public void destroy() {
     }

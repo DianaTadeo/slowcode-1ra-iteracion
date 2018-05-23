@@ -14,49 +14,75 @@ import javax.servlet.http.HttpSession;
  * @author rrios
  */
 public class UtilidadHTTP {
-    
+
+    /**
+     *
+     * @return
+     */
     public static HttpSession obtenSesion() {
-        return (HttpSession)
-          FacesContext.
-          getCurrentInstance().
-          getExternalContext().
-          getSession(false);
-      }
-       
-      public static HttpServletRequest obtenSolicitud() {
-       return (HttpServletRequest) FacesContext.
-          getCurrentInstance().
-          getExternalContext().getRequest();
-      }
- 
-      public static String obtenUsuario() {
-        HttpSession session = 
-                (HttpSession) FacesContext.getCurrentInstance().
+        return (HttpSession) FacesContext.
+                getCurrentInstance().
+                getExternalContext().
+                getSession(false);
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static HttpServletRequest obtenSolicitud() {
+        return (HttpServletRequest) FacesContext.
+                getCurrentInstance().
+                getExternalContext().getRequest();
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static String obtenUsuario() {
+        HttpSession session
+                = (HttpSession) FacesContext.getCurrentInstance().
                         getExternalContext().getSession(false);
         return session.getAttribute("username").toString();
-      }
-       
-      public static String getUserId() {
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static String getUserId() {
         HttpSession session = obtenSesion();
-        if ( session != null )
+        if (session != null) {
             return (String) session.getAttribute("userid");
-        else
+        } else {
             return null;
-      }
-      
-      public static Integer obtenerIdUsuario() {
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static Integer obtenerIdUsuario() {
         HttpSession session = obtenSesion();
-        if ( session != null )
+        if (session != null) {
             return (Integer) session.getAttribute("userid");
-        else
+        } else {
             return null;
-      }
-      
-      public static boolean esAdmin() {
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public static boolean esAdmin() {
         HttpSession session = obtenSesion();
-        if ( session != null )
+        if (session != null) {
             return (boolean) session.getAttribute("admin");
-        else
+        } else {
             return false;
-      }
+        }
+    }
 }

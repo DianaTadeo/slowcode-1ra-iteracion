@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -28,9 +28,9 @@
                     <h:form>
                         <p:button value="Buscar... " outcome="/busqueda" ></p:button>
                         <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
-                        <p:splitButton value="#{sessionScope.username}" 
-                                       action="/restringido/perfil" 
-                                       icon="ui-icon-person" 
+                        <p:splitButton value="#{sessionScope.username}"
+                                       action="/restringido/perfil"
+                                       icon="ui-icon-person"
                                        rendered="#{sessionScope.username != null}">
                             <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
                             <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
@@ -42,18 +42,18 @@
                 </f:facet>
             </p:toolbar>
             <p:sticky target="tb" />
-            
+
             <p:spacer></p:spacer>
             <p:spacer></p:spacer>
-             
+
             <div  align="center">
                 <h:form id="busqueda" style="width: 65%">
                     <div  align="center">
-                        <p:inputText style="margin-right:10px" placeholder="Busqueda..." 
-                                         value="#{busquedaBean.contenido}" required="true" 
-                                         requiredMessage="No introduciste factor de Busqueda!!!"/>
-                        <p:commandButton id="busca" 
-                                         icon="ui-icon-search" 
+                        <p:inputText style="margin-right:10px" placeholder="Busqueda..."
+                                     value="#{busquedaBean.contenido}" required="true"
+                                     requiredMessage="No introduciste factor de Busqueda!!!"/>
+                        <p:commandButton id="busca"
+                                         icon="ui-icon-search"
                                          value="Busca..."
                                          action="#{busquedaBean.cargaResultados()}"
                                          ajax="true" update="busqueda"/>
@@ -81,8 +81,9 @@
 
                                         <h:outputText value="Por:" />
                                         <h:outputText value="#{res.usuario.nombre}" style="font-weight: bold"/>
-                                        <p:commandButton id="mas" value="Ver mas" 
-                                                 action="#{preguntaBean.mostrarPregunta(res.id)}" icon="ui-icon-check" />
+                                        <p:commandButton id="mas" value="Ver mas"
+                                                         action="#{preguntaBean.mostrarPregunta(res.id)}" ajax="false"
+                                                         icon="ui-icon-check" />
                                     </h:panelGrid>
                                 </p:outputPanel>
                             </h:panelGrid>
@@ -91,8 +92,8 @@
                     </p:fieldset>
                 </h:form>
             </div>
-            
+
         </h:body>
     </f:view>
-    
+
 </html>

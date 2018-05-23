@@ -18,28 +18,40 @@ import modelo.UsuarioSinValidar;
  */
 @ManagedBean(name = "validaCuentaBean")
 @SessionScoped
-public class ValidaCuentaBean implements Serializable{
+public class ValidaCuentaBean implements Serializable {
+
     private int id_validar;
 
+    /**
+     *
+     * @return
+     */
     public int getId_validar() {
         return id_validar;
     }
 
+    /**
+     *
+     * @param id_validar
+     */
     public void setId_validar(int id_validar) {
         this.id_validar = id_validar;
     }
-    
-    public String valida_cuenta(){
+
+    /**
+     *
+     * @return
+     */
+    public String valida_cuenta() {
         ManagerUsuarioSinValidar MUSV = new ManagerUsuarioSinValidar();
         ManagerUsuario MU = new ManagerUsuario();
-        
+
         UsuarioSinValidar usv = MUSV.obtenUSV(id_validar);
-        if(usv == null){
-            FacesContext.getCurrentInstance().addMessage(null, 
+        if (usv == null) {
+            FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage("No se pudo validar"));
             return "registro";
-        }
-        else{
+        } else {
             MUSV.eliminaUSV(usv);
             MU.agregaUsuario(usv.getNombre(), usv.getEmail(), usv.getPassword());
             return "cuenta_validada";

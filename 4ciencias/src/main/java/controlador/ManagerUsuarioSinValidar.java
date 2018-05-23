@@ -9,8 +9,8 @@ import java.util.List;
 import modelo.HibernateUtil;
 import modelo.UsuarioSinValidar;
 import org.hibernate.HibernateException;
-import org.hibernate.Transaction;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 /**
  *
@@ -43,6 +43,14 @@ public class ManagerUsuarioSinValidar {
         return usv_id;
     }
 
+    /**
+     *
+     * @param nombre
+     * @param email
+     * @param password
+     * @param conf_password
+     * @return
+     */
     public int agregaUSV(String nombre, String email, String password,
             String conf_password) {
         if (!comparaPass(password, conf_password)) {
@@ -65,6 +73,11 @@ public class ManagerUsuarioSinValidar {
 
     //Checa si el correo especificado ya existe en la tabla. Si existe devuelve
     //su ID, si no, devuelve -1
+    /**
+     *
+     * @param email
+     * @return
+     */
     public int existeUSV(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
@@ -84,13 +97,20 @@ public class ManagerUsuarioSinValidar {
         } finally {
             session.close();
         }
-        if(resultado == null || resultado.isEmpty()) return -1;
-        
+        if (resultado == null || resultado.isEmpty()) {
+            return -1;
+        }
+
         id = ((UsuarioSinValidar) resultado.get(0)).getId();
         return id;
     }
-    
-    public UsuarioSinValidar obtenUSV(int id){
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public UsuarioSinValidar obtenUSV(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
         UsuarioSinValidar usv = null;
@@ -108,8 +128,12 @@ public class ManagerUsuarioSinValidar {
         }
         return usv;
     }
-    
-    public void eliminaUSV(UsuarioSinValidar usv){
+
+    /**
+     *
+     * @param usv
+     */
+    public void eliminaUSV(UsuarioSinValidar usv) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = null;
 
@@ -128,6 +152,11 @@ public class ManagerUsuarioSinValidar {
 
     //Intenta dar un formato correcto al correo proporcionado. Si no es parte
     //del dominio @ciencias.unam.mx devuelve null
+    /**
+     *
+     * @param email
+     * @return
+     */
     public String formateaEmail(String email) {
         email = email.trim();
         if (email.endsWith("@ciencias.unam.mx")) {
@@ -136,8 +165,14 @@ public class ManagerUsuarioSinValidar {
             return null;
         }
     }
-    
-    public boolean comparaPass(String password1, String password2){
+
+    /**
+     *
+     * @param password1
+     * @param password2
+     * @return
+     */
+    public boolean comparaPass(String password1, String password2) {
         return password1.equals(password2);
     }
 }

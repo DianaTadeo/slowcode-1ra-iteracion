@@ -5,13 +5,10 @@
  */
 package controlador;
 
-import java.io.IOException;
+import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
-import javax.servlet.http.HttpSession;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -24,44 +21,81 @@ import org.apache.commons.codec.digest.DigestUtils;
 public class RegistroBean implements Serializable {
 
     private String nombre, email, password, conf_password;
+
     /**
      * Creates a new instance of RegistroBean
      */
     public RegistroBean() {
     }
 
+    /**
+     *
+     * @return
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getConf_password() {
         return conf_password;
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     *
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     *
+     * @param password
+     */
     public void setPassword(String password) {
         this.password = DigestUtils.sha256Hex(password);
     }
 
+    /**
+     *
+     * @param conf_password
+     */
     public void setConf_password(String conf_password) {
         this.conf_password = DigestUtils.sha256Hex(conf_password);
     }
 
+    /**
+     *
+     * @return
+     */
     public String registraUSV() {
         ManagerUsuarioSinValidar MUSV = new ManagerUsuarioSinValidar();
         ManagerUsuario MU = new ManagerUsuario();
@@ -70,7 +104,7 @@ public class RegistroBean implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage("Las contraseñas no coinciden"));
             return "registro";
-        } else if(password.equals(DigestUtils.sha256Hex(""))){
+        } else if (password.equals(DigestUtils.sha256Hex(""))) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage("La contraseña no puede quedar vacia"));
             return "registro";

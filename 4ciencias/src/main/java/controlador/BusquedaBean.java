@@ -9,7 +9,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import modelo.Pregunta;
-import modelo.Usuario;
 
 /**
  *
@@ -18,29 +17,52 @@ import modelo.Usuario;
 @ManagedBean(name = "busquedaBean")
 @SessionScoped
 public class BusquedaBean {
+
     private String contenido = "";
     private List<Pregunta> resultados;
 
+    /**
+     * Obtiene Resultados.
+     *
+     * @return resultados
+     */
     public List<Pregunta> getResultados() {
         return resultados;
     }
 
+    /**
+     * Asigna Resultados.
+     *
+     * @param resultados
+     */
     public void setResultados(List<Pregunta> resultados) {
         this.resultados = resultados;
     }
 
+    /**
+     * Obtiene Contenido.
+     *
+     * @return contenido
+     */
     public String getContenido() {
         return contenido;
     }
 
+    /**
+     * Asigna Contenido.
+     *
+     * @param contenido
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-    
+
+    /**
+     * Obtiene las preguntas con el contenido.
+     */
     public void cargaResultados() {
         ManagerPregunta mp = new ManagerPregunta();
         resultados = mp.getPreguntas(contenido);
-        contenido = "";
     }
-    
+
 }

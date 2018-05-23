@@ -7,7 +7,6 @@ package controlador;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import modelo.Pregunta;
@@ -20,16 +19,28 @@ import modelo.Pregunta;
 @SessionScoped
 public class GeneralBean implements Serializable {
 
-    private List<Pregunta> top; 
-    
+    private List<Pregunta> top;
+
+    /**
+     *
+     * @return
+     */
     public List<Pregunta> dameTop() {
-        return new ManagerP().todas();
+        return new ManagerPregunta().getPreguntas();
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public List<Pregunta> getTop() {
         return top;
     }
 
+    /**
+     *
+     * @param top
+     */
     public void setTop(List<Pregunta> top) {
         this.top = top;
     }

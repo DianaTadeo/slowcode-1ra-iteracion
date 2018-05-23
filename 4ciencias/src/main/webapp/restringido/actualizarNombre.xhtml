@@ -15,7 +15,7 @@
 
         <h:body>
 
-             <h:form id="updateUnameForm">          
+            <h:form id="updateUnameForm">
                 <p:growl id="msg" showDetail="true" life="3000" />
                 <p:panel header="" style="width: 420px;">
 
@@ -23,8 +23,8 @@
 
                         <h:outputText value="Nuevo nombre:" />
 
-                        <p:inputText id="username" 
-                                     value="#{editarPerfilBean.nombre}" 
+                        <p:inputText id="username"
+                                     value="#{editarPerfilBean.nombre}"
                                      required="true"
                                      requiredMessage="No introduciste el nuevo nombre!"
                                      ></p:inputText>
@@ -34,9 +34,9 @@
                         <p:message for="username" ></p:message>
 
 
-                        <p:commandButton action="#{editarPerfilBean.validaNombre()}" 
-                                         value="Actualizar" 
-                                         update="updateUnameForm" 
+                        <p:commandButton action="#{editarPerfilBean.validaNombre()}"
+                                         value="Actualizar"
+                                         update="updateUnameForm"
                                          ajax="true"></p:commandButton>
 
                     </h:panelGrid>
@@ -44,7 +44,7 @@
                 </p:panel>
 
             </h:form>
-            
+
         </h:body>
 
     </f:view>

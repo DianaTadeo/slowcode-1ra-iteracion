@@ -40,11 +40,11 @@ made subject to such option by the copyright holder.
 Contributor(s):
 -->
 <hibernate-reverse-engineering>
-  <schema-selection match-catalog="fciencias" match-schema="public"/>
-  <table-filter match-name="categoria"/>
-  <table-filter match-name="usuario_sin_validar"/>
-  <table-filter match-name="pregunta"/>
-  <table-filter match-name="carrera"/>
-  <table-filter match-name="respuesta"/>
-  <table-filter match-name="usuario"/>
+    <schema-selection match-catalog="fciencias" match-schema="public"/>
+    <table-filter match-name="categoria"/>
+    <table-filter match-name="usuario_sin_validar"/>
+    <table-filter match-name="pregunta"/>
+    <table-filter match-name="carrera"/>
+    <table-filter match-name="respuesta"/>
+    <table-filter match-name="usuario"/>
 </hibernate-reverse-engineering>

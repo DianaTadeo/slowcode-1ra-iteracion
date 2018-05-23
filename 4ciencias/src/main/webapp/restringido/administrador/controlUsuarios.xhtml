@@ -5,7 +5,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    
+
     <f:view contentType="text/html">
         <h:head>
             <f:facet name="first">
@@ -29,9 +29,9 @@
                         <p:button value="Buscar... " outcome="/busqueda" ></p:button>
                         <p:button value="Control de Usuarios" outcome="/restringido/administrador/controlUsuarios" rendered="#{sessionScope.admin}" ></p:button>
                         <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
-                        <p:splitButton value="#{sessionScope.username}" 
-                                       action="/restringido/perfil" 
-                                       icon="ui-icon-person" 
+                        <p:splitButton value="#{sessionScope.username}"
+                                       action="/restringido/perfil"
+                                       icon="ui-icon-person"
                                        rendered="#{sessionScope.username != null}">
                             <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
                             <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
@@ -43,10 +43,10 @@
                 </f:facet>
             </p:toolbar>
             <p:sticky target="tb" />
-            
+
             <p:spacer></p:spacer>
             <p:spacer></p:spacer>
-             
+
             <h:form id="control" style="width: 65%; margin: 0 auto; margin-top: 100px">
 
                 <p:spacer></p:spacer>
@@ -92,8 +92,8 @@
                     </p:dataScroller>
                 </p:fieldset>
             </h:form>
-            
+
         </h:body>
     </f:view>
-    
+
 </html>

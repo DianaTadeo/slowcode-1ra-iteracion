@@ -15,7 +15,7 @@
 
         <h:body>
 
-             <h:form id="updateEmailForm">          
+            <h:form id="updateEmailForm">
                 <p:growl id="msg" showDetail="true" life="3000" />
                 <p:panel header="" style="width: 420px;">
 
@@ -23,8 +23,8 @@
 
                         <h:outputText value="Nuevo email:" />
 
-                        <p:inputText id="email" 
-                                     value="#{editarPerfilBean.email}" 
+                        <p:inputText id="email"
+                                     value="#{editarPerfilBean.email}"
                                      required="true"
                                      requiredMessage="No introduciste el nuevo email!"
                                      ></p:inputText>
@@ -34,9 +34,9 @@
                         <p:message for="email" ></p:message>
 
 
-                        <p:commandButton action="#{editarPerfilBean.validaEmail()}" 
-                                         value="Actualizar" 
-                                         update="updateEmailForm" 
+                        <p:commandButton action="#{editarPerfilBean.validaEmail()}"
+                                         value="Actualizar"
+                                         update="updateEmailForm"
                                          ajax="true"></p:commandButton>
 
                     </h:panelGrid>
@@ -44,7 +44,7 @@
                 </p:panel>
 
             </h:form>
-            
+
         </h:body>
 
     </f:view>

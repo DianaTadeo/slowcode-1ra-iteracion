@@ -14,8 +14,8 @@
             </f:facet>
         </h:head>
 
-        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
-                       background-size: cover;">
+        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed;
+                background-size: cover;">
             <p:toolbar id="tb">
                 <f:facet name="left">
                     <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
@@ -29,9 +29,9 @@
                     <h:form>
                         <p:button value="Buscar... " outcome="/busqueda" ></p:button>
                         <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
-                        <p:splitButton value="#{sessionScope.username}" 
-                                       action="/restringido/perfil" 
-                                       icon="ui-icon-person" 
+                        <p:splitButton value="#{sessionScope.username}"
+                                       action="/restringido/perfil"
+                                       icon="ui-icon-person"
                                        rendered="#{sessionScope.username != null}">
                             <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
                             <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
@@ -44,23 +44,23 @@
             </p:toolbar>
             <p:sticky target="tb" />
 
-             <h:form id="loginForm" rendered="#{sessionScope.username == null}">          
-                 <p:growl id="msg" life="3000" autoUpdate="false" 
-                          globalOnly="true"/>
-                <p:panel style="width: 350px; height: 300px; 
-                                top: 50%;  left: 50%; 
-                                margin: -150px 0 0 -175px;
-                                border: 2px solid dodgerblue; padding: 10px; 
-                                opacity: 0.9; text-align: left; position: absolute;
-                                align-items: center" 
+            <h:form id="loginForm" rendered="#{sessionScope.username == null}">
+                <p:growl id="msg" life="3000" autoUpdate="false"
+                         globalOnly="true"/>
+                <p:panel style="width: 350px; height: 300px;
+                         top: 50%;  left: 50%;
+                         margin: -150px 0 0 -175px;
+                         border: 2px solid dodgerblue; padding: 10px;
+                         opacity: 0.9; text-align: left; position: absolute;
+                         align-items: center"
                          header="Login">
 
                     <h:panelGrid id="loginPanel" columns="2">
 
                         <h:outputText value="Email: " />
 
-                        <p:inputText id="email" 
-                                     value="#{loginBean.email}" 
+                        <p:inputText id="email"
+                                     value="#{loginBean.email}"
                                      required="true"
                                      requiredMessage="No introduciste tu correo!!!"
                                      >
@@ -72,10 +72,10 @@
 
                         <h:outputText value="Password: " />
 
-                        <p:password id="password" 
-                                    value="#{loginBean.password}"  
+                        <p:password id="password"
+                                    value="#{loginBean.password}"
                                     feedback="false"
-                                    required="true" 
+                                    required="true"
                                     requiredMessage="No introduciste el password!!!"
                                     >
                         </p:password>
@@ -86,12 +86,12 @@
 
                         <p:spacer></p:spacer>
 
-                        <p:commandButton action="#{loginBean.resultadoLogin()}" 
-                                         value="Login" 
-                                         update="loginForm" 
+                        <p:commandButton action="#{loginBean.resultadoLogin()}"
+                                         value="Login"
+                                         update="loginForm"
                                          ajax="true">
                         </p:commandButton>
-                        
+
                         <p:spacer></p:spacer>
 
                         <p:button outcome="registro" value="Registro"  style="align-self: center"></p:button>
@@ -101,7 +101,7 @@
                 </p:panel>
 
             </h:form>
-            
+
         </h:body>
 
     </f:view>

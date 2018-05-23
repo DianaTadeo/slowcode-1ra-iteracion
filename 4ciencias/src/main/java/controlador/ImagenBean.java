@@ -10,10 +10,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
-import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -24,16 +22,23 @@ import org.primefaces.model.StreamedContent;
 @ManagedBean(name = "imagenBean")
 @ApplicationScoped
 public class ImagenBean implements Serializable {
-    
+
+    /**
+     * Adquiere Imagen.
+     *
+     * @return @throws IOException
+     * @throws NumberFormatException
+     */
     public StreamedContent getImagen() throws IOException, NumberFormatException {
         FacesContext context = FacesContext.getCurrentInstance();
-        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE)
+        if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new DefaultStreamedContent();
-        else {
+        } else {
             String id = context.getExternalContext().getRequestParameterMap().get("imgid");
             // Ya no es fase de rendereo aqui, NO QUITAR (se rompe todo componente command)
-            if (id == null)
+            if (id == null) {
                 return new DefaultStreamedContent();
+            }
             byte[] foto = new ManagerUsuario().getUserPhoto(Integer.valueOf(id));
             return new DefaultStreamedContent(new ByteArrayInputStream(foto));
         }

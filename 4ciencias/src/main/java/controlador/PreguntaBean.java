@@ -5,29 +5,27 @@
  */
 package controlador;
 
-import modelo.Categoria;
-import modelo.Pregunta;
-import modelo.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
-import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import modelo.Categoria;
+import modelo.Pregunta;
+import modelo.Usuario;
 
 /**
  *
  * @author palmerin
  */
 @ManagedBean(name = "preguntaBean")
-@Dependent
+@SessionScoped
 public class PreguntaBean {
-    
+
     /* Columnas de tabla de Pregunta en BD. */
     private Categoria categoria;
     private Usuario usuario;
@@ -35,187 +33,335 @@ public class PreguntaBean {
     private String contenido;
     private Date fecha;
     private int id;
-    
+
     /* Variables para manejar eventos en la interfaz gráfica. */
-    private String nombreCategoria; /* Guarda el nombre de la categoria seleccionada. */
-    private List preguntas;      
+    private String nombreCategoria;
+    /* Guarda el nombre de la categoria seleccionada. */
+    private List preguntas;
     private Pregunta pregunta;
-   
+    private String mensajeError;
+
     /**
      * Creates a new instance of PreguntaBean
      */
     public PreguntaBean() {
-    }                              
-    
-    /* Getters y Setters. */    
+    }
+
+    /* Getters y Setters. */
+    /**
+     *
+     * @return
+     */
     public Categoria getCategoria() {
         return this.categoria;
     }
-    
+
+    /**
+     *
+     * @param categoria
+     */
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public Usuario getUsuario() {
         return this.usuario;
     }
-    
+
+    /**
+     *
+     * @param usuario
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    /**
+     *
+     * @return
+     */
     public String getTitulo() {
         return this.titulo;
     }
-    
+
+    /**
+     *
+     * @param titulo
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public String getContenido() {
         return this.contenido;
     }
-    
+
+    /**
+     *
+     * @param contenido
+     */
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-        
+
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return this.fecha;
     }
-    
+
+    /**
+     *
+     * @param fecha
+     */
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }  
-    
+    }
+
+    /**
+     *
+     * @param pregunta
+     */
     public void setPregunta(Pregunta pregunta) {
         this.pregunta = pregunta;
     }
-    
-    public void setNombreCategoria(String nombre) {       
+
+    /**
+     *
+     * @param nombre
+     */
+    public void setNombreCategoria(String nombre) {
         nombreCategoria = nombre;
         asignarCategoria(nombreCategoria);
-        
+
     }
-    
-    public String getNombreCategoria() {        
+
+    /**
+     *
+     * @return
+     */
+    public String getNombreCategoria() {
         return nombreCategoria;
     }
-    
+
     private void asignarCategoria(String nombre) {
         ManagerCategoria manager = new ManagerCategoria();
-        this.categoria = manager.getCategoria(nombre);        
+        this.categoria = manager.getCategoria(nombre);
     }
-    
-    public void setPreguntas(List preguntas) {        
+
+    /**
+     *
+     * @param preguntas
+     */
+    public void setPreguntas(List preguntas) {
         this.preguntas = preguntas;
     }
-    
-    public List<Pregunta> getPreguntas() throws IOException {                          
-       
-        cargaPreguntas();               
+
+    /**
+     *
+     * @return @throws IOException
+     */
+    public List<Pregunta> getPreguntas() throws IOException {
+        cargaPreguntas();
         return preguntas;
     }
-    
-     /** Método que verifica los campos de una pregunta.
-    * @return true si es válida, false si no lo es.
-    */
+
+    /**
+     *
+     * @param mensajeError
+     */
+    public void setMensajeError(String mensajeError) {
+        this.mensajeError = mensajeError;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getMensajeError() {
+        return mensajeError;
+    }
+
+    /**
+     * Método que verifica los campos de una pregunta.
+     *
+     * @return true si es válida, false si no lo es.
+     */
     public boolean verificarPregunta() {
-        if (this.categoria == null)
-            return false;        
-        if (this.titulo == null || this.titulo.isEmpty())
-            return false;                          
+        if (categoria == null) {
+            return false;
+        }
+        if (this.titulo == null || this.titulo.isEmpty()) {
+            mensajeError = "Es necesario poner un título.\n"
+                    + "No se ha insertado la pregunta.";
+            return false;
+        }
         return true;
     }
-    
+
+    /**
+     *
+     * @param id
+     * @throws IOException
+     */
     public void mostrarPregunta(int id) throws IOException {
         this.id = id;
         ManagerPregunta manager = new ManagerPregunta();
         this.pregunta = manager.getPreguntas(id).get(0);
         FacesContext.getCurrentInstance().getExternalContext()
-                .redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/Pregunta.xhtml?id_pregunta=" + id);       
+                .redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                        + "/restringido/Pregunta.xhtml?id_pregunta=" + id);
     }
-    
-    public void eliminarPregunta() throws IOException {  
-        String param = obtenerParametroUrl("id_pregunta");        
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void eliminarPregunta() throws IOException {
+        String param = obtenerParametroUrl("id_pregunta");
         ManagerPregunta manager = new ManagerPregunta();
-        
+
         boolean eliminado = manager.eliminarPregunta(id);
         if (eliminado) {
-            muestraMensaje(FacesMessage.SEVERITY_INFO, "Se ha eliminado la pregunta.",
-                           "");
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                            + "/restringido/principal.xhtml");
+        } else {
+            mensajeError = "No se ha eliminado tu pregunta.\n"
+                    + "Inténtalo más tarde.";
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                            + "/restringido/principal.xhtml");
         }
-        else muestraMensaje(FacesMessage.SEVERITY_FATAL, "No se ha eliminado la pregunta.",
-                           "Intenta mas tarde...");
     }
-    
-    public void insertarPregunta() throws IOException {        
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void insertarPregunta() throws IOException {
         ManagerPregunta manager = new ManagerPregunta();
-        if (verificarPregunta()) {           
-            Date fechaPregunta = new Date();            
+        if (verificarPregunta()) {
+            Date fechaPregunta = new Date();
             Usuario sessionUser = manager.getUsuario(UtilidadHTTP.obtenerIdUsuario());
-            Serializable serial = manager.addPregunta(categoria, sessionUser, titulo, contenido, fechaPregunta);              
+            Serializable serial = manager.addPregunta(categoria, sessionUser, titulo, contenido, fechaPregunta);
             FacesContext.getCurrentInstance().getExternalContext().
-                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/Pregunta.xhtml?id_pregunta=" + serial);            
+                    redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                            + "/restringido/Pregunta.xhtml?id_pregunta=" + serial);
+        } else {
+            FacesContext.getCurrentInstance().getExternalContext()
+                    .redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                            + "/restringido/mensajes/err/ErrorPreguntaIH.xhtml");
         }
-        else muestraMensaje(FacesMessage.SEVERITY_FATAL, "No se ha publicado la pregunta.",
-                           "Verifica los campos.");  
+        limpiarAtributos();
     }
-    
+
+    private void limpiarAtributos() {
+        categoria = null;
+        usuario = null;
+        fecha = null;
+        titulo = "";
+        contenido = "";
+        id = 0;
+    }
+
+    /**
+     *
+     * @param parametro
+     * @return
+     */
     public String obtenerParametroUrl(String parametro) {
-        HttpServletRequest req = (HttpServletRequest)FacesContext
-                                                .getCurrentInstance()
-                                                .getExternalContext()
-                                                .getRequest();
+        HttpServletRequest req = (HttpServletRequest) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getRequest();
         return req.getParameter(parametro);
     }
-         
-    
+
+    /**
+     *
+     * @throws IOException
+     */
     public void cargaPreguntas() throws IOException {
         ManagerPregunta manager = new ManagerPregunta();
-        String parametro = obtenerParametroUrl("id_pregunta");         
-        if (parametro == null || parametro.isEmpty())
+        String parametro = obtenerParametroUrl("id_pregunta");
+        if (parametro == null || parametro.isEmpty()) {
             preguntas = manager.getPreguntas();
-        else 
+        } else {
             preguntas = manager.getPreguntas(Integer.parseInt(parametro));
+        }
     }
-    
-     public Pregunta getPregunta() {
-        String parametro = obtenerParametroUrl("id_pregunta");                
+
+    /**
+     *
+     * @return
+     */
+    public Pregunta getPregunta() {
+        String parametro = obtenerParametroUrl("id_pregunta");
         if (parametro != null && !parametro.isEmpty()) {
-          this.id = Integer.parseInt(parametro);
-          ManagerPregunta manager = new ManagerPregunta();
-          pregunta = manager.getPreguntas(id).get(0);   
-        }       
+            this.id = Integer.parseInt(parametro);
+            ManagerPregunta manager = new ManagerPregunta();
+            pregunta = manager.getPreguntas(id).get(0);
+        }
         return pregunta;
     }
-     
-    /**Nuevo: */
-     public void mostrarAgregarPregunta() throws IOException {
-         FacesContext.getCurrentInstance().getExternalContext().
-                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/AgregaPregunta.xhtml"); 
-     }
-     
-     public void mostrarInicio() throws IOException {
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void mostrarAgregarPregunta() throws IOException {
         FacesContext.getCurrentInstance().getExternalContext().
-                redirect(UtilidadHTTP.obtenSolicitud().getContextPath() + 
-                         "/restringido/principal.xhtml"); 
-     }
-         
-     public void muestraMensaje(FacesMessage.Severity severidad, String mensaje, 
-                               String detalles) {
+                redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                        + "/restringido/AgregaPregunta.xhtml");
+    }
+
+    /**
+     *
+     * @throws IOException
+     */
+    public void mostrarInicio() throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().
+                redirect(UtilidadHTTP.obtenSolicitud().getContextPath()
+                        + "/restringido/principal.xhtml");
+    }
+
+    /**
+     *
+     * @param severidad
+     * @param mensaje
+     * @param detalles
+     */
+    public void muestraMensaje(FacesMessage.Severity severidad, String mensaje,
+            String detalles) {
         FacesContext.getCurrentInstance().
                 addMessage(null, new FacesMessage(severidad, mensaje, detalles));
     }
-    
+
 }

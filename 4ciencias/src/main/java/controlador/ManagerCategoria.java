@@ -5,10 +5,9 @@
  */
 package controlador;
 
+import java.util.List;
 import modelo.Categoria;
 import modelo.HibernateUtil;
-import java.util.LinkedList;
-import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,7 +17,12 @@ import org.hibernate.Transaction;
  * @author palmerin
  */
 public class ManagerCategoria {
-    
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Categoria getCategoria(int id) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
@@ -29,17 +33,25 @@ public class ManagerCategoria {
             resultado = sesion.createQuery(hql).list();
             tr.commit();
         } catch (HibernateException he) {
-            if (tr != null)
+            if (tr != null) {
                 tr.rollback();
+            }
         } finally {
-           sesion.close();
+            sesion.close();
         }
-       
-        if (resultado != null)
+
+        if (resultado != null) {
             return (Categoria) resultado.get(0);
-        
+        }
+
         return null;
     }
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     public Categoria getCategoria(String nombre) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
@@ -50,43 +62,51 @@ public class ManagerCategoria {
             resultado = sesion.createQuery(hql).list();
             tr.commit();
         } catch (HibernateException he) {
-            if (tr != null)
+            if (tr != null) {
                 tr.rollback();
+            }
         } finally {
-           sesion.close();
+            sesion.close();
         }
-       
+
         if (resultado != null) {
             System.out.println("No es null el resultado.");
             return (Categoria) resultado.get(0);
         }
-            
+
         System.out.println("Si es nulo");
         return null;
     }
-    
-    
+
+    /**
+     *
+     * @return
+     */
     public List<Categoria> getCategorias() {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
-        Transaction tr = null;     
+        Transaction tr = null;
         String hql = "FROM Categoria";
         List resultado = null;
         try {
             tr = sesion.beginTransaction();
             resultado = sesion.createQuery(hql).list();
             tr.commit();
-        }        
-        catch (HibernateException he) {
-            if (tr != null)
+        } catch (HibernateException he) {
+            if (tr != null) {
                 tr.rollback();
-        }
-        finally {
+            }
+        } finally {
             sesion.close();
         }
-        
+
         return resultado;
     }
-    
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     public boolean addCategoria(String nombre) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
@@ -97,34 +117,37 @@ public class ManagerCategoria {
             sesion.save(categoria);
             exito = true;
             tr.commit();
-        }
-        catch (HibernateException he) {
-            if (tr != null)
+        } catch (HibernateException he) {
+            if (tr != null) {
                 tr.rollback();
-        }
-        finally {
+            }
+        } finally {
             sesion.close();
         }
-        
+
         return exito;
     }
-    
+
+    /**
+     *
+     * @param nombre
+     * @return
+     */
     public boolean exists(String nombre) {
         Session sesion = HibernateUtil.getSessionFactory().openSession();
         Transaction tr = null;
-        String hql = "Select C.nombre FROM Categoria where C.nombre = '" 
-                        + nombre + "'";
+        String hql = "Select C.nombre FROM Categoria where C.nombre = '"
+                + nombre + "'";
         List resultado = null;
         try {
             tr = sesion.beginTransaction();
             resultado = sesion.createQuery(hql).list();
             tr.commit();
-        }
-        catch (HibernateException he) {
-            if (tr != null)
+        } catch (HibernateException he) {
+            if (tr != null) {
                 tr.rollback();
-        }
-        finally {
+            }
+        } finally {
             sesion.close();
         }
         return resultado != null && !resultado.isEmpty();

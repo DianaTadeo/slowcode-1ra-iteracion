@@ -3,15 +3,15 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
-/* 
+/*
     Created on : Apr 14, 2018, 6:50:27 PM
     Author     : palmerin
 */
 
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-content.ui-widget-content, 
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-content.ui-widget-content,
 .ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header.ui-widget-header,
 .ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer.ui-widget-header,
-.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header > tr.ui-widget-header, 
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header > tr.ui-widget-header,
 .ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content,
 .ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content > td.ui-panelgrid-cell,
 .ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer > tr.ui-widget-footer {
@@ -20,17 +20,17 @@ and open the template in the editor.
 }
 
 #centered-container {
-  position: absolute;  
-  top: 40%;
-  left: 40%;
-  width: 650px;  
-  margin: -100px 0 0 -150px;    
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 650px;
+    margin: -100px 0 0 -150px;
 }
 
 #below-container {
-  position: absolute;  
-  top: 90%;
-  left: 40%;
-  width: 650px;  
-  margin: -100px 0 0 -150px;    
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    width: 650px;
+    margin: -100px 0 0 -150px;
 }

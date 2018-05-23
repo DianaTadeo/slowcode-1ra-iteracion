@@ -5,14 +5,9 @@
  */
 package controlador;
 
-import java.io.IOException;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
-import javax.servlet.http.HttpSession;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import org.primefaces.model.ByteArrayContent;
 import org.primefaces.model.StreamedContent;
 
@@ -20,15 +15,22 @@ import org.primefaces.model.StreamedContent;
  *
  * @author jantoniolr
  */
-
-
 @ManagedBean(name = "perfilBean")
 @SessionScoped
 public class PerfilBean implements Serializable {
+
+    /**
+     *
+     * @return
+     */
     public String fetchNombre() {
         return UtilidadHTTP.obtenUsuario();
     }
 
+    /**
+     *
+     * @return
+     */
     public String fetchPasswordLength() {
         String nombre = UtilidadHTTP.obtenUsuario();
         ManagerUsuario manager = new ManagerUsuario();
@@ -41,20 +43,28 @@ public class PerfilBean implements Serializable {
         return res;
     }
 
+    /**
+     *
+     * @return
+     */
     public String fetchEmail() {
         String nombre = UtilidadHTTP.obtenUsuario();
         ManagerUsuario manager = new ManagerUsuario();
         return manager.getUserEmail(nombre);
     }
-    
+
+    /**
+     *
+     * @return
+     */
     public StreamedContent fetchPhoto() {
         ManagerUsuario manager = new ManagerUsuario();
         byte[] foto = manager.getUserPhoto(UtilidadHTTP.obtenerIdUsuario());
-        if (foto != null)
+        if (foto != null) {
             return new ByteArrayContent(foto);
-        else
+        } else {
             return null;
+        }
     }
-    
-    
+
 }

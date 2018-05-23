@@ -13,8 +13,8 @@
             </f:facet>
         </h:head>
 
-        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed; 
-                       background-size: cover;">
+        <h:body style="background:url(https://upload.wikimedia.org/wikipedia/commons/5/54/Facultad_de_Ciencias_%28UNAM%29.jpg) no-repeat center center fixed;
+                background-size: cover;">
             <p:toolbar id="tb">
                 <f:facet name="left">
                     <p:button outcome="/restringido/principal" value="4CIENCIAS" icon="ui-icon-star"></p:button>
@@ -27,9 +27,9 @@
                 <f:facet name="right" >
                     <h:form>
                         <p:button value="Iniciar Sesion" outcome="/login" rendered="#{sessionScope.userid == null}"></p:button>
-                        <p:splitButton value="#{sessionScope.username}" 
-                                       action="/restringido/perfil" 
-                                       icon="ui-icon-person" 
+                        <p:splitButton value="#{sessionScope.username}"
+                                       action="/restringido/perfil"
+                                       icon="ui-icon-person"
                                        rendered="#{sessionScope.username != null}">
                             <p:menuitem value="Perfil" icon="ui-icon-lightbulb" action="/restringido/perfil" />
                             <p:menuitem value="Añadir Pregunta" icon="ui-icon-plusthick" action="#{preguntaBean.mostrarAgregarPregunta}" />
@@ -41,8 +41,8 @@
                 </f:facet>
             </p:toolbar>
             <p:sticky target="tb" />
-            
-            <h:form id="formaRegistro" style="margin: 0 auto; margin-top: 100px">          
+
+            <h:form id="formaRegistro" style="margin: 0 auto; margin-top: 100px">
                 <p:growl id="msg" showDetail="true" life="3000" />
                 <p:panel header="Registrate" style="width: 400px; margin: 0 auto">
 
@@ -50,28 +50,28 @@
 
                         <h:outputText value="Nombre:"/>
                         <p:inputText id="nombre" value="#{registroBean.nombre}" />
-                        
+
                         <p:spacer/><p:spacer/>
-                        
+
                         <h:outputText value="Correo:"/>
                         <p:inputText id="email" value="#{registroBean.email}" />
 
                         <p:spacer/><p:spacer/>
-                        
+
                         <h:outputText value="Contraseña:"/>
-                        <p:password id="password" value="#{registroBean.password}"  
+                        <p:password id="password" value="#{registroBean.password}"
                                     feedback="true" />
 
                         <p:spacer/><p:spacer/>
-                        
+
                         <h:outputText value="Confirma contraseña:"/>
-                        <p:password id="conf_password" value="#{registroBean.conf_password}"  
+                        <p:password id="conf_password" value="#{registroBean.conf_password}"
                                     feedback="true" />
 
                         <p:spacer/><p:spacer/>
-                        
+
                         <p:spacer/>
-                        <p:commandButton id="agrega" action="#{registroBean.registraUSV()}" 
+                        <p:commandButton id="agrega" action="#{registroBean.registraUSV()}"
                                          value="Registrate" update="formaRegistro" ajax="true"></p:commandButton>
 
                     </h:panelGrid>
@@ -79,7 +79,7 @@
                 </p:panel>
 
             </h:form>
-            
+
         </h:body>
 
     </f:view>
