@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controlador;
 
 import java.util.*;
@@ -17,8 +12,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 /**
+ * Clase que permite la interacción del objedo te la base de datos
+ * Respuesta con el resto de las clases del controlador.
  *
  * @author diana
+ * @version 1.0
  */
 @ManagedBean(name ="managerR")
 @ApplicationScoped
@@ -92,7 +90,8 @@ public class ManagerRespuesta {
       
   }
    
-   /**Devuelve una lista de respuestas que pertenecen a una pregunta
+   /**
+    * Devuelve una lista de respuestas que pertenecen a una pregunta
     * @param idPregunta la pregunta en la que aparecen todas las respuestas
     * @return respuestas es la lista de respuestas en la pregunta
     */
@@ -104,20 +103,22 @@ public class ManagerRespuesta {
             tr = sesion.beginTransaction();
             respuestas = sesion.createQuery("FROM Respuesta where id_pregunta="+ idPregunta).list();
             tr.commit();
-        }
-        catch(HibernateException he) {
+        }catch(HibernateException he){
             if (tr != null) 
                 tr.rollback();
-            
         }
-        finally {
+        finally{
             sesion.close();
         }
         return respuestas;
-    
     }
 
-
+    /**
+    * Permite regresar una representacion en cadena del objeto
+    * respuesta
+    * @param r la respuesta que se planea pasar a cadena
+    * @return la cadena de representacion
+    */
     public String toString(Respuesta r){
         return r.getContenido()+" user: "+r.getUsuario().getNombre();
     }
